@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>準1級 面接ルーム</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3efe7; --paper:#fffdf8; --ink:#23262b; --sub:#6b6f76; --line:#ddd6c8;
+  --accent:#1f5f5b; --accent-2:#e8f0ee; --warn:#b4552d; --warn-2:#f8eae3;
+  --gold:#c08a2c; --good:#2f7a4a; --rec:#d23c3c;
+  --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(40,30,10,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1c1e; --paper:#25272a; --ink:#ecebe7; --sub:#a4a7ad; --line:#3a3c40;
+    --accent:#6fb8ad; --accent-2:#26393a; --warn:#e5926b; --warn-2:#3d2b24;
+    --gold:#d9a94e; --good:#6cc08b; --rec:#ff6b6b; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1c1e; --paper:#25272a; --ink:#ecebe7; --sub:#a4a7ad; --line:#3a3c40;
+  --accent:#6fb8ad; --accent-2:#26393a; --warn:#e5926b; --warn-2:#3d2b24;
+  --gold:#d9a94e; --good:#6cc08b; --rec:#ff6b6b; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.en{font-family:"Literata",Georgia,serif}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+.hidden{display:none!important}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand h1{font-size:20px;margin:0;letter-spacing:.04em}
+.brand span{color:var(--sub);font-size:13px}
+.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:10px 18px;border-radius:999px;font-weight:500;transition:.15s}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.big{padding:14px 28px;font-size:17px}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--sub)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.muted{color:var(--sub)}
+.small{font-size:13px}
+label.f{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
+input.f,select.f,textarea.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.grid3{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px}
+@media(max-width:640px){.grid3{grid-template-columns:1fr 1fr}.grid3>div:last-child{grid-column:1/-1}}
+
+/* ---------- Home ---------- */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.flow{counter-reset:s;list-style:none;padding:0;margin:8px 0 0}
+.flow li{position:relative;padding:6px 0 6px 34px;border-bottom:1px dashed var(--line);font-size:14px}
+.flow li:last-child{border:0}
+.flow li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:7px;width:22px;height:22px;border-radius:50%;background:var(--accent-2);color:var(--accent);font-size:12px;font-weight:700;display:grid;place-items:center}
+.flow b{font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.pick{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--paper);text-align:left;color:var(--ink)}
+.pick:hover{border-color:var(--accent)}
+.pick.on{border-color:var(--accent);background:var(--accent-2)}
+.pick .no{font-size:12px;color:var(--sub)}
+.pick .tt{font-weight:700}
+.pick .tp{font-size:12px;color:var(--sub)}
+.pick .best{font-size:12px;color:var(--gold);margin-top:4px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.opt{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;margin-top:10px}
+.opt label{display:flex;gap:6px;align-items:center}
+.notice{background:var(--warn-2);color:var(--warn);border-radius:10px;padding:10px 14px;font-size:14px}
+.hist{font-size:14px;width:100%;border-collapse:collapse}
+.hist td,.hist th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.hist th{color:var(--sub);font-weight:500;font-size:12px}
+
+/* ---------- Exam ---------- */
+.room{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.room{grid-template-columns:1fr}}
+.stage{background:linear-gradient(180deg,#dfe7e4 0%,#eef1ec 62%,#c8b79a 62%,#bba987 100%);border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3.3}
+:root[data-theme="dark"] .stage{filter:brightness(.82)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stage{filter:brightness(.82)}}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+#mouth{transition:transform .08s}
+.talking #mouth{animation:talk .22s infinite alternate}
+@keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.25)}}
+#eyes{animation:blink 4.2s infinite;transform-origin:center 112px}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.sub{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(20,22,25,.82);color:#fff;border-radius:10px;padding:8px 12px;font-size:15px;line-height:1.5;min-height:20px}
+.sub:empty{display:none}
+.side{display:flex;flex-direction:column;gap:12px}
+.status{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.phase{font-weight:700;font-size:15px}
+.clock{font-variant-numeric:tabular-nums;font-size:28px;font-weight:700;letter-spacing:.02em}
+.clock.low{color:var(--warn)}
+.recdot{display:inline-flex;align-items:center;gap:6px;color:var(--rec);font-weight:700;font-size:14px}
+.recdot::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--rec);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.25}}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s linear}
+.live{font-size:14px;color:var(--sub);background:var(--bg);border-radius:10px;padding:8px 12px;max-height:110px;overflow:auto}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+/* problem card */
+.pcard{background:#fff;color:#1d1d1d;border-radius:8px;border:1px solid #cfc8b8;padding:16px 18px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.pcard .hd{display:flex;justify-content:space-between;font-size:12px;color:#666;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:10px}
+.pcard .ins{font-size:15px;line-height:1.6}
+.pcard .first{display:block;margin:6px 0 12px;padding:6px 10px;border:1.5px solid #1d1d1d;font-weight:600}
+.pics{position:relative;border-radius:4px;overflow:hidden;background:#f2f2f2}
+.pics img{display:block;width:100%;height:auto}
+.badge{position:absolute;background:#fff;border:1.5px solid #222;border-radius:4px;padding:1px 7px;font-size:13px;font-weight:600;color:#111;font-family:"Literata",Georgia,serif;white-space:nowrap}
+.note{position:absolute;max-width:46%;background:rgba(255,255,255,.93);border:1px solid #333;border-radius:10px;padding:3px 8px;font-size:12.5px;line-height:1.35;color:#111;font-family:"Literata",Georgia,serif}
+.pnum{position:absolute;width:20px;height:20px;border-radius:50%;background:#222;color:#fff;font-size:12px;display:grid;place-items:center}
+.fallback{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fallback div{background:#f6f4ef;border:1px solid #ddd;border-radius:6px;padding:10px;font-size:13px;min-height:110px}
+.fallback b{font-family:"Literata",Georgia,serif}
+.pcard.back{display:grid;place-items:center;min-height:260px;background:repeating-linear-gradient(45deg,#f5f1e8,#f5f1e8 10px,#efe9dc 10px,#efe9dc 20px)}
+.pcard.back div{background:#fff;border:1px solid #ccc;border-radius:6px;padding:14px 22px;text-align:center;color:#555}
+textarea.typing{min-height:120px}
+/* guide & steps */
+.guide{border:1.5px solid var(--accent);background:var(--accent-2);border-radius:var(--radius);padding:14px 16px}
+.guide .gh{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--accent);font-size:14px}
+.guide .gh .ic{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:13px}
+.guide .gt{margin:6px 0 0;font-size:15px}
+.guide .cp{margin-top:8px;background:var(--paper);border-left:4px solid var(--gold);border-radius:6px;padding:6px 10px;font-size:14px}
+.guide .cp b{color:var(--gold)}
+.guide .say{margin-top:8px;font-size:14px}
+.guide .say .en{font-weight:600}
+.guide.speaking .ic{animation:pulse 1s infinite}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;font-size:12.5px}
+.steps li{padding:3px 0 3px 22px;position:relative;color:var(--sub)}
+.steps li::before{content:"";position:absolute;left:4px;top:9px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper)}
+.steps li.done{color:var(--ink)}
+.steps li.done::before{background:var(--accent);border-color:var(--accent)}
+.steps li.now{color:var(--accent);font-weight:700}
+.steps li.now::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 30%,transparent)}
+.mode{display:grid;gap:8px;margin-top:6px}
+.mode label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+.mode label:has(input:checked){border-color:var(--accent);background:var(--accent-2)}
+.mode input{margin-top:5px}
+.mode b{display:block;font-size:14px}
+.mode span{font-size:12.5px;color:var(--sub)}
+#door{transition:opacity .6s}
+.stage.inside #door{opacity:0;pointer-events:none}
+.stage:not(.inside) #examiner{opacity:0}
+#examiner{transition:opacity .6s}
+
+/* ---------- Result ---------- */
+.score-hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+@media(max-width:640px){.score-hero{grid-template-columns:1fr}}
+.total{font-size:56px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.total small{font-size:20px;color:var(--sub);font-weight:500}
+.meters{display:grid;gap:10px}
+.meter .lb{display:flex;justify-content:space-between;font-size:14px}
+.meter .bar>i{transition:width .8s ease}
+.meter.acc .bar>i{background:var(--gold)}
+.sec{border-top:1px solid var(--line);padding:16px 0}
+.sec:first-child{border-top:0;padding-top:0}
+.sec h3{margin:0 0 6px;font-size:17px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sec h3 .pt{font-variant-numeric:tabular-nums;color:var(--accent);font-size:15px}
+.sec .q{font-size:14px;color:var(--sub);margin-bottom:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+.cmt{border-radius:10px;padding:10px 12px;font-size:14px}
+.cmt.c{background:var(--accent-2)}
+.cmt.a{background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.cmt .h{font-weight:700;font-size:13px;margin-bottom:2px}
+details{margin-top:8px;font-size:14px}
+details summary{cursor:pointer;color:var(--accent);font-weight:500}
+.yours{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:6px}
+.improved{border-left:3px solid var(--accent);padding:6px 12px;margin-top:8px}
+.corr{width:100%;border-collapse:collapse;font-size:14px}
+.corr td,.corr th{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.corr th{font-size:12px;color:var(--sub);font-weight:500}
+.corr .o{color:var(--warn);text-decoration:line-through;text-decoration-thickness:1px}
+.corr .n{color:var(--good);font-weight:600}
+.exps{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.exp{border:1px solid var(--line);border-radius:12px;padding:12px}
+.exp .e{font-weight:600;font-size:16px}
+.exp .m{font-size:13px;color:var(--sub)}
+.exp .x{font-size:14px;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
+h2.st{font-size:18px;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+h2.st::before{content:"";width:6px;height:18px;border-radius:3px;background:var(--accent)}
+.loading{display:grid;place-items:center;min-height:300px;text-align:center}
+.spin{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 14px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;z-index:50}
+@media print{
+  body{background:#fff;color:#000}
+  .noprint,header.top{display:none!important}
+  .card{box-shadow:none;border:0;padding:0}
+  .wrap{max-width:none;padding:0}
+  details{display:block}
+  details>summary{display:none}
+  details[open]>*,details>*{display:block}
+  .sec{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top noprint">
+    <div class="brand"><h1>準1級 面接ルーム</h1><span>英検®準1級 二次試験 練習</span></div>
+    <div class="row">
+      <button class="btn ghost small" id="themeBtn" title="表示の明暗を切り替え">◐</button>
+      <button class="btn ghost small" id="abortBtn" hidden>中断する</button>
+    </div>
+  </header>
+
+  <!-- ======================= HOME ======================= -->
+  <section id="home">
+    <div class="hero">
+      <div class="card">
+        <h2 style="margin:0 0 4px;font-size:20px">本番と同じ流れで、面接官と練習しよう</h2>
+        <p class="muted small" style="margin:0 0 8px">面接官のセリフは本番とほぼ同じです。答え終わったら「話し終えた」を押します。最後にAIが採点し、修正版の表現と次に使える表現を返します。</p>
+        <ol class="flow">
+          <li><b>入室・あいさつ</b>　面接カードを渡し、名前と簡単な質問に答える</li>
+          <li><b>黙読・考える時間 1分</b>　問題カードの指示文と4コマを見て準備（メモ不可）</li>
+          <li><b>ナレーション 2分</b>　指定の言い出しで始め、4コマのストーリーを話す</li>
+          <li><b>No.1</b>　イラストに関する質問（「もしあなたが〜だったら」）</li>
+          <li><b>No.2〜No.4</b>　カードを裏返し、社会的な話題についての質問に答える</li>
+          <li><b>評価シート</b>　内容・英語の正確さ／修正版の表現／次に使える表現</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="grid3">
+          <div><label class="f" for="sCls">クラス</label><input class="f" id="sCls" placeholder="例 2-3"></div>
+          <div><label class="f" for="sNo">番号</label><input class="f" id="sNo" inputmode="numeric" placeholder="例 12"></div>
+          <div><label class="f" for="sName">名前</label><input class="f" id="sName" placeholder="例 桜丘 花子"></div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="f">練習のしかた</label>
+          <div class="mode">
+            <label><input type="radio" name="runMode" value="guided" checked><div><b>ガイドつきで通し練習</b><span>音声ガイドが入室から試験開始までを案内します。各場面を「もう一度」聞き直せます。</span></div></label>
+            <label><input type="radio" name="runMode" value="entry"><div><b>入室〜試験開始だけ練習</b><span>あいさつ・カードの受け渡し・着席・名前の確認までをくり返し練習します。</span></div></label>
+            <label><input type="radio" name="runMode" value="real"><div><b>本番モード</b><span>ガイドなし。面接官とのやりとりだけで最後まで進みます。</span></div></label>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="f">問題カードを選ぶ</label>
+          <div class="cards" id="cardList"></div>
+        </div>
+        <div class="opt">
+          <label><input type="checkbox" id="optSub"> 面接官の字幕を表示</label>
+          <label><input type="checkbox" id="optLive"> 自分の発話を表示</label>
+          <label><input type="checkbox" id="optSkip" checked> 考える時間をスキップ可</label>
+        </div>
+        <div class="opt">
+          <label><input type="radio" name="inMode" value="voice" checked> 声で答える</label>
+          <label><input type="radio" name="inMode" value="type"> キーボードで答える</label>
+          <label>話す速さ <select id="optRate" class="f" style="width:auto;padding:4px 8px"><option value="0.85">ゆっくり</option><option value="0.95" selected>ふつう</option><option value="1.05">本番より少し速め</option></select></label>
+        </div>
+        <div id="srWarn" class="notice hidden" style="margin-top:12px">このブラウザは音声認識に対応していません。Google Chrome で開くか、「キーボードで答える」を選んでください。</div>
+        <div class="row" style="margin-top:16px">
+          <button class="btn ghost small" id="micTest">🎤 マイクと音声を確認</button>
+          <span class="sp"></span>
+          <button class="btn primary big" id="startBtn">面接室に入る</button>
+        </div>
+        <p id="micMsg" class="small muted" style="margin:6px 0 0"></p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px" id="histBox">
+      <div class="row"><b>これまでの記録（この端末）</b><span class="sp"></span><button class="btn ghost small" id="histClear">記録を消す</button></div>
+      <div id="histBody" class="small muted">まだ記録はありません。</div>
+    </div>
+
+    <details class="card noprint" style="margin-top:18px" id="teacherBox">
+      <summary>先生用の設定</summary>
+      <p class="small muted">採点用 Apps Script の「ウェブアプリURL」を入れると、この端末ではそのURLで採点します（空欄ならアプリに書き込まれたURLを使用）。URLが未設定・接続できないときは、Geminiに貼り付けて採点する方式に自動で切り替わります。</p>
+      <input class="f" id="gasUrl" placeholder="https://script.google.com/macros/s/xxxxx/exec">
+      <div class="row" style="margin-top:8px"><button class="btn small" id="gasSave">保存</button><button class="btn small" id="gasTest">接続テスト</button><span id="gasMsg" class="small muted"></span></div>
+    </details>
+  </section>
+
+  <!-- ======================= EXAM ======================= -->
+  <section id="exam" class="hidden">
+    <div class="room">
+      <div class="side">
+        <div class="stage" id="stage">
+          <svg viewBox="0 0 400 330" aria-label="面接官">
+            <!-- window -->
+            <rect x="250" y="26" width="120" height="96" rx="4" fill="#f7faf8" stroke="#b9c7c1" stroke-width="3"/>
+            <line x1="310" y1="26" x2="310" y2="122" stroke="#b9c7c1" stroke-width="3"/>
+            <line x1="250" y1="74" x2="370" y2="74" stroke="#b9c7c1" stroke-width="3"/>
+            <rect x="36" y="40" width="70" height="54" rx="3" fill="#e9e3d6" stroke="#c7bca6" stroke-width="2"/>
+            <text x="71" y="72" font-size="11" text-anchor="middle" fill="#8a7d66" font-family="Literata,serif">Grade Pre-1</text>
+            <g id="examiner">
+            <!-- body -->
+            <path d="M118 330 C118 248 150 214 200 210 C250 214 282 248 282 330 Z" fill="#3f5e6e"/>
+            <path d="M178 212 L200 252 L222 212 Z" fill="#f4f1ea"/>
+            <path d="M186 214 L200 240 L214 214" fill="none" stroke="#e1d9c8" stroke-width="2"/>
+            <rect x="188" y="186" width="24" height="30" rx="8" fill="#e8bf9c"/>
+            <!-- head -->
+            <ellipse cx="200" cy="140" rx="50" ry="58" fill="#efc9a6"/>
+            <path d="M148 132 C146 82 178 70 202 70 C232 70 258 88 252 136 C246 112 230 98 204 98 C180 98 160 108 148 132 Z" fill="#4a3427"/>
+            <path d="M148 132 C140 160 146 186 156 196 C152 170 152 150 156 128 Z" fill="#4a3427"/>
+            <path d="M252 136 C260 160 254 186 244 196 C248 170 248 150 244 128 Z" fill="#4a3427"/>
+            <g id="eyes">
+              <ellipse cx="181" cy="138" rx="5" ry="6" fill="#2a2420"/>
+              <ellipse cx="219" cy="138" rx="5" ry="6" fill="#2a2420"/>
+            </g>
+            <g fill="none" stroke="#5b4636" stroke-width="2">
+              <rect x="167" y="128" width="28" height="21" rx="9"/>
+              <rect x="205" y="128" width="28" height="21" rx="9"/>
+              <line x1="195" y1="136" x2="205" y2="136"/>
+            </g>
+            <path d="M174 122 q8 -5 16 0 M210 122 q8 -5 16 0" stroke="#4a3427" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M200 146 q-3 12 0 14" stroke="#c99a78" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <ellipse cx="170" cy="162" rx="8" ry="4" fill="#f0a98f" opacity=".45"/>
+            <ellipse cx="230" cy="162" rx="8" ry="4" fill="#f0a98f" opacity=".45"/>
+            <g transform="translate(200 174)"><ellipse id="mouth" cx="0" cy="0" rx="10" ry="4" fill="#9c4a43"/></g>
+            </g>
+            <!-- desk -->
+            <rect x="0" y="262" width="400" height="68" fill="#a88f6a"/>
+            <rect x="0" y="258" width="400" height="8" fill="#8f7756"/>
+            <rect x="236" y="240" width="78" height="22" rx="2" fill="#fbfaf6" stroke="#d7d0c0" transform="rotate(-4 275 251)"/>
+            <rect x="96" y="246" width="44" height="14" rx="2" fill="#2f3b45"/>
+            <!-- corridor & door (before entering) -->
+            <g id="door">
+              <rect x="0" y="0" width="400" height="330" fill="#e7e1d4"/>
+              <rect x="0" y="250" width="400" height="80" fill="#cfc4ad"/>
+              <rect x="130" y="40" width="140" height="232" rx="4" fill="#9b7b55" stroke="#7a5f40" stroke-width="4"/>
+              <rect x="146" y="58" width="108" height="86" rx="3" fill="none" stroke="#7a5f40" stroke-width="3"/>
+              <rect x="146" y="160" width="108" height="94" rx="3" fill="none" stroke="#7a5f40" stroke-width="3"/>
+              <circle cx="250" cy="160" r="7" fill="#d9c08a" stroke="#8a6d3a" stroke-width="2"/>
+              <rect x="160" y="16" width="80" height="20" rx="3" fill="#fbfaf6" stroke="#b9ad94"/>
+              <text x="200" y="30" font-size="10" text-anchor="middle" fill="#6b5f4a">面接室 Room 3</text>
+              <rect x="44" y="150" width="58" height="12" rx="2" fill="#8a7a5e"/>
+              <rect x="50" y="162" width="6" height="40" fill="#8a7a5e"/><rect x="90" y="162" width="6" height="40" fill="#8a7a5e"/>
+            </g>
+          </svg>
+          <div class="sub" id="subtitle"></div>
+        </div>
+        <div class="guide hidden" id="guide">
+          <div class="gh"><span class="ic">♪</span><span id="gStep">STEP 1</span></div>
+          <p class="gt" id="gText"></p>
+          <div class="cp hidden" id="gCp"></div>
+          <div class="say hidden" id="gSay"></div>
+          <div class="actions" style="margin-top:10px" id="gActions"></div>
+        </div>
+        <div class="card">
+          <div class="status">
+            <span class="phase" id="phase">入室</span>
+            <span class="sp"></span>
+            <span class="recdot hidden" id="recdot">録音中</span>
+            <span class="clock hidden" id="clock">0:00</span>
+          </div>
+          <div class="bar" style="margin-top:8px"><i id="progress"></i></div>
+          <div id="hint" class="small muted" style="margin-top:8px"></div>
+          <div id="live" class="live hidden" style="margin-top:8px"></div>
+          <textarea id="typing" class="f typing hidden en" style="margin-top:8px" placeholder="ここに英語で入力してください"></textarea>
+          <div class="actions" style="margin-top:12px" id="actions"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card hidden" id="stepsBox" style="margin-bottom:14px">
+          <div class="small muted" style="margin-bottom:6px">面接の流れ</div>
+          <ol class="steps" id="steps"></ol>
+        </div>
+        <div id="cardArea"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= RESULT ======================= -->
+  <section id="result" class="hidden"></section>
+</div>
+
+<script src="cards.js"></script>
+<script src="prompt.js"></script>
+<script>
+/* =========================================================
+   設定：採点用 Apps Script のウェブアプリURL（デプロイ後に貼る）
+   ========================================================= */
+const DEFAULT_GAS_URL = "";
+const EXAMINER_NAME = "Ms. Sato";
+const ANSWER_SEC = { name: 15, ok: 8, free: 40, narration: 120, q1: 60, q2: 60, q3: 60, q4: 60 };
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
+function show(id){ ['home','exam','result'].forEach(x => $('#'+x).classList.toggle('hidden', x!==id)); window.scrollTo(0,0); }
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+class Abort extends Error {}
+
+/* ---------- theme ---------- */
+(function(){ const t = store.get('p1_theme', null); if(t) document.documentElement.dataset.theme = t; })();
+$('#themeBtn').onclick = () => {
+  const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const nx = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = nx; store.set('p1_theme', nx);
+};
+
+/* ---------- state ---------- */
+const S = {
+  card: null, input: 'voice', rate: 0.95, subs: false, live: false, skip: true,
+  answers: {}, audio: {}, pardons: 0, aborted: false, stream: null, student: {}
+};
+
+/* ---------- home ---------- */
+let selected = store.get('p1_last_card', 1);
+function bestOf(id){
+  const h = store.get('p1_hist', []).filter(x => x.card === id);
+  return h.length ? Math.max(...h.map(x => x.total)) : null;
+}
+function renderCards(){
+  $('#cardList').innerHTML = CARDS.map(c => {
+    const b = bestOf(c.id);
+    return `<button class="pick ${c.id===selected?'on':''}" data-id="${c.id}">
+      <div class="no">Card ${c.id}</div><div class="tt">${esc(c.title)}</div>
+      <div class="tp en">${esc(c.topic)}</div>${b!=null?`<div class="best">ベスト ${b}/38</div>`:''}</button>`;
+  }).join('') + `<button class="pick ${selected==='random'?'on':''}" data-id="random"><div class="no">?</div><div class="tt">ランダム</div><div class="tp">本番のように</div></button>`;
+  document.querySelectorAll('.pick').forEach(b => b.onclick = () => {
+    selected = b.dataset.id === 'random' ? 'random' : Number(b.dataset.id);
+    store.set('p1_last_card', selected); renderCards();
+  });
+}
+function renderHist(){
+  const h = store.get('p1_hist', []);
+  if(!h.length){ $('#histBody').innerHTML = 'まだ記録はありません。'; return; }
+  $('#histBody').innerHTML = `<table class="hist"><tr><th>日時</th><th>カード</th><th>合計</th><th>ナレーション</th><th>No.1</th><th>No.2</th><th>No.3</th><th>No.4</th><th>態度</th></tr>` +
+    h.slice(-12).reverse().map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.title)}</td><td><b>${x.total}</b>/38</td>${x.parts.map(p=>`<td>${p}</td>`).join('')}</tr>`).join('') + `</table>`;
+}
+$('#histClear').onclick = () => { if(confirm('この端末の記録をすべて消しますか？')){ store.set('p1_hist', []); renderHist(); renderCards(); } };
+const stu = store.get('p1_student', {});
+$('#sCls').value = stu.cls || ''; $('#sNo').value = stu.no || ''; $('#sName').value = stu.name || '';
+$('#optSub').checked = store.get('p1_subs', false);
+$('#optLive').checked = store.get('p1_live', false);
+$('#gasUrl').value = store.get('p1_gas', '');
+if(!SR){ $('#srWarn').classList.remove('hidden'); document.querySelector('input[name=inMode][value=type]').checked = true; }
+
+function gasUrl(){ return (store.get('p1_gas','') || DEFAULT_GAS_URL || '').trim(); }
+$('#gasSave').onclick = () => { store.set('p1_gas', $('#gasUrl').value.trim()); $('#gasMsg').textContent = '保存しました'; };
+$('#gasTest').onclick = async () => {
+  const u = $('#gasUrl').value.trim() || DEFAULT_GAS_URL;
+  if(!u){ $('#gasMsg').textContent = 'URLが空です'; return; }
+  $('#gasMsg').textContent = '確認中…';
+  try{ const r = await fetch(u); const j = await r.json(); $('#gasMsg').textContent = j.ok ? '接続OK（' + (j.model||'') + '）' : 'エラー: ' + j.error; }
+  catch(e){ $('#gasMsg').textContent = '接続できません: ' + e.message; }
+};
+
+/* ---------- voice ---------- */
+let VOICE = null;
+function pickVoice(){
+  const vs = speechSynthesis.getVoices();
+  const prefs = ['Google US English','Samantha','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Google UK English Female','Karen','Moira'];
+  for(const p of prefs){ const v = vs.find(x => x.name.includes(p)); if(v) return v; }
+  return vs.find(x => /^en[-_]US/i.test(x.lang)) || vs.find(x => /^en/i.test(x.lang)) || null;
+}
+if('speechSynthesis' in window){ VOICE = pickVoice(); speechSynthesis.onvoiceschanged = () => { VOICE = pickVoice(); }; }
+
+function say(text){
+  check();
+  return new Promise(res => {
+    $('#subtitle').textContent = S.subs ? text : '';
+    $('#stage').classList.add('talking');
+    let done = false;
+    const fin = () => { if(done) return; done = true; $('#stage').classList.remove('talking'); res(); };
+    if(!('speechSynthesis' in window)){ setTimeout(fin, 900 + text.length*55); return; }
+    const u = new SpeechSynthesisUtterance(text);
+    if(VOICE) u.voice = VOICE;
+    u.lang = (VOICE && VOICE.lang) || 'en-US'; u.rate = S.rate;
+    u.onend = fin; u.onerror = fin;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    setTimeout(fin, 2500 + text.length * 110 / S.rate);
+  }).then(() => sleep(250)).then(check);
+}
+function check(){ if(S.aborted) throw new Abort(); }
+
+/* ---------- Japanese guide voice ---------- */
+let JA = null;
+function pickJa(){
+  const vs = ('speechSynthesis' in window) ? speechSynthesis.getVoices() : [];
+  const prefs = ['Google 日本語','Kyoko','Microsoft Nanami','Microsoft Ayumi','O-ren','Haruka'];
+  for(const p of prefs){ const v = vs.find(x => x.name.includes(p)); if(v) return v; }
+  return vs.find(x => /^ja/i.test(x.lang)) || null;
+}
+if('speechSynthesis' in window){ JA = pickJa(); const prev = speechSynthesis.onvoiceschanged; speechSynthesis.onvoiceschanged = () => { prev && prev(); JA = pickJa(); }; }
+function sayJa(text){
+  return new Promise(res => {
+    $('#guide').classList.add('speaking');
+    let done = false;
+    const fin = () => { if(done) return; done = true; $('#guide').classList.remove('speaking'); res(); };
+    if(!('speechSynthesis' in window)){ setTimeout(fin, 400 + text.length*120); return; }
+    const u = new SpeechSynthesisUtterance(text);
+    if(JA) u.voice = JA; u.lang = 'ja-JP'; u.rate = 1.05;
+    u.onend = fin; u.onerror = fin;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    setTimeout(fin, 2500 + text.length * 190);
+  });
+}
+
+/* ---------- steps (バーチャル二次試験の流れ) ---------- */
+const STEPS = ['受験の準備','入室','「面接カード」を渡す','着席','氏名・級の確認、簡単な質問','「問題カード」を受け取る',
+  'Narrationの考慮時間','Narration','Q&A（No.1）','「問題カード」を裏返す','Q&A（No.2〜No.4）','「問題カード」を返す','退室'];
+function setStep(i){
+  S.step = i;
+  $('#steps').innerHTML = STEPS.map((s, k) => `<li class="${k < i ? 'done' : k === i ? 'now' : ''}">${k+1}. ${esc(s)}</li>`).join('');
+}
+function hideGuide(){ $('#guide').classList.add('hidden'); }
+/* 音声ガイド：読み上げ → 「もう一度聞く」「次へ」 */
+function guide(i, { text, cp, line, wait = true }){
+  check();
+  setStep(i);
+  if(S.mode === 'real'){ hideGuide(); return Promise.resolve(); }
+  const g = $('#guide'); g.classList.remove('hidden');
+  $('#gStep').textContent = `STEP ${i+1}　${STEPS[i]}`;
+  $('#gText').textContent = text;
+  $('#gCp').classList.toggle('hidden', !cp); $('#gCp').innerHTML = cp ? `<b>チェックポイント！</b> ${esc(cp)}` : '';
+  $('#gSay').classList.toggle('hidden', !line); $('#gSay').innerHTML = line ? `言ってみよう：<span class="en">${esc(line)}</span>` : '';
+  const spoken = text + (cp ? '。チェックポイント。' + cp : '');
+  const ga = $('#gActions'); ga.innerHTML = '';
+  setActions([]); setPhase(STEPS[i], '');
+  return new Promise((res, rej) => {
+    S._rej = rej;
+    const replay = document.createElement('button'); replay.className = 'btn small'; replay.textContent = '↻ もう一度聞く';
+    replay.onclick = () => sayJa(spoken);
+    if(!wait){ sayJa(spoken).then(() => { ga.innerHTML = ''; ga.appendChild(replay); res(); }); return; }
+    const next = document.createElement('button'); next.className = 'btn primary'; next.textContent = '次へ ▶';
+    next.onclick = () => { speechSynthesis.cancel(); ga.innerHTML = ''; ga.appendChild(replay); res(); };
+    ga.append(replay, next);
+    sayJa(spoken);
+  }).then(check);
+}
+/* 本番中の短いチェックポイント（読み上げなし・止まらない） */
+function note(i, cp){
+  setStep(i);
+  if(S.mode === 'real'){ hideGuide(); return; }
+  const g = $('#guide'); g.classList.remove('hidden');
+  $('#gStep').textContent = `STEP ${i+1}　${STEPS[i]}`;
+  $('#gText').textContent = '';
+  $('#gCp').classList.remove('hidden'); $('#gCp').innerHTML = `<b>チェックポイント！</b> ${esc(cp)}`;
+  $('#gSay').classList.add('hidden'); $('#gActions').innerHTML = '';
+}
+/* ノックの音 */
+function knock(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [0, .28, .56].forEach(t => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(170, ctx.currentTime + t); o.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + t + .09);
+      g.gain.setValueAtTime(.9, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + t + .12);
+      o.connect(g).connect(ctx.destination); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + .14);
+    });
+  }catch(e){}
+  return sleep(900);
+}
+
+/* ---------- mic ---------- */
+async function ensureMic(){
+  if(S.stream) return S.stream;
+  S.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  return S.stream;
+}
+$('#micTest').onclick = async () => {
+  try{
+    await ensureMic();
+    $('#micMsg').textContent = 'マイクOK。面接官の声が聞こえるか確認してください。';
+    S.rate = Number($('#optRate').value);
+    const u = new SpeechSynthesisUtterance("Hello. Can you hear me clearly?"); if(VOICE) u.voice = VOICE; u.rate = S.rate;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){ $('#micMsg').textContent = 'マイクが使えません。ブラウザのマイク許可を確認してください。（' + e.name + '）'; }
+};
+
+/* ---------- UI pieces in exam ---------- */
+let tickTimer = null;
+function setPhase(t, hint=''){ $('#phase').textContent = t; $('#hint').textContent = hint; }
+function setActions(btns){
+  const a = $('#actions'); a.innerHTML = '';
+  btns.forEach(b => { const el = document.createElement('button'); el.className = 'btn ' + (b.cls||''); el.textContent = b.label; el.onclick = b.onclick; if(b.id) el.id = b.id; a.appendChild(el); });
+}
+function fmt(sec){ sec = Math.max(0, Math.ceil(sec)); return Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0'); }
+function countdown(total, onTick){
+  const start = performance.now();
+  $('#clock').classList.remove('hidden');
+  return () => {
+    const el = (performance.now() - start)/1000, left = total - el;
+    $('#clock').textContent = fmt(left);
+    $('#clock').classList.toggle('low', left <= 10);
+    $('#progress').style.width = Math.min(100, el/total*100) + '%';
+    onTick && onTick(left, el);
+    return left;
+  };
+}
+function clearClock(){ clearInterval(tickTimer); $('#clock').classList.add('hidden'); $('#progress').style.width = '0'; $('#recdot').classList.add('hidden'); }
+
+function waitAction(label, hint){
+  check();
+  setPhase(label, hint || '');
+  return new Promise((res, rej) => {
+    S._rej = rej;
+    setActions([{ label, cls:'primary big', onclick: () => { setActions([]); res(); } }]);
+  });
+}
+
+function prep(sec){
+  check();
+  setPhase('考える時間（1分）', '問題カードの指示文と4コマを黙読して、話す内容を考えましょう。メモは取れません。');
+  return new Promise((res, rej) => {
+    S._rej = rej;
+    const tick = countdown(sec);
+    const end = () => { clearClock(); setActions([]); res(); };
+    tickTimer = setInterval(() => { if(tick() <= 0) end(); }, 200);
+    setActions(S.skip ? [{ label:'準備できた', onclick:end }] : []);
+  });
+}
+
+/* recorder */
+function startRecorder(){
+  if(!S.stream || !window.MediaRecorder) return null;
+  try{
+    const r = new MediaRecorder(S.stream); const chunks = [];
+    r.ondataavailable = e => e.data.size && chunks.push(e.data);
+    r.start();
+    return { stop: () => new Promise(res => { r.onstop = () => res(new Blob(chunks, { type: r.mimeType || 'audio/webm' })); try{ r.stop(); }catch(e){ res(null); } }) };
+  }catch(e){ return null; }
+}
+
+/* listen: returns {text, durationSec, latencySec, words, reason} */
+function listen(key, { label, hint, max, pardon }){
+  check();
+  setPhase(label, hint || '');
+  return new Promise((resolve, reject) => {
+    S._rej = reject;
+    const t0 = performance.now();
+    let firstAt = null, finals = [], interim = '', done = false, rec = null;
+    const live = $('#live'), typing = $('#typing');
+    const showLive = () => { if(S.live) live.textContent = (finals.join(' ') + ' ' + interim).trim() || '…'; };
+    live.classList.toggle('hidden', !(S.live && S.input === 'voice')); live.textContent = '…';
+    if(S.input === 'voice' && SR){
+      rec = new SR(); rec.lang = 'en-US'; rec.continuous = true; rec.interimResults = true;
+      rec.onresult = e => {
+        if(!firstAt) firstAt = performance.now();
+        interim = '';
+        for(let i = e.resultIndex; i < e.results.length; i++){
+          const r = e.results[i];
+          if(r.isFinal) finals.push(r[0].transcript.trim()); else interim += r[0].transcript;
+        }
+        showLive();
+      };
+      rec.onend = () => { if(!done){ try{ rec.start(); }catch(e){} } };
+      rec.onerror = e => { if(e.error === 'not-allowed' || e.error === 'service-not-allowed'){ toast('音声認識が許可されていません。キーボード入力に切り替えます'); S.input = 'type'; } };
+      try{ rec.start(); }catch(e){}
+    } else {
+      typing.classList.remove('hidden'); typing.value = ''; typing.focus();
+      typing.oninput = () => { if(!firstAt) firstAt = performance.now(); };
+    }
+    const recorder = startRecorder();
+    $('#recdot').classList.remove('hidden');
+    const tick = countdown(max);
+    const finish = async (reason) => {
+      if(done) return; done = true;
+      clearInterval(tickTimer); setActions([]);
+      if(rec){ try{ rec.stop(); }catch(e){} await sleep(700); }
+      const blob = recorder ? await recorder.stop() : null;
+      if(blob) S.audio[key] = URL.createObjectURL(blob);
+      clearClock(); live.classList.add('hidden');
+      let text = S.input === 'voice' && rec ? (finals.join(' ') + ' ' + interim).trim() : typing.value.trim();
+      if(!rec){ typing.classList.add('hidden'); typing.oninput = null; }
+      text = text.replace(/\s+/g, ' ');
+      const dur = Math.round((performance.now() - t0)/1000);
+      resolve({ text, durationSec: dur, latencySec: firstAt ? Math.round((firstAt - t0)/100)/10 : null,
+                words: text ? text.split(/\s+/).length : 0, reason });
+    };
+    S._finish = finish;
+    tickTimer = setInterval(() => { if(tick() <= 0) finish('timeout'); }, 200);
+    const btns = [{ label: '話し終えた', cls: 'primary', onclick: () => finish('manual') }];
+    if(pardon) btns.push({ label: 'Pardon?（聞き返す）', onclick: async (ev) => {
+      S.pardons++; ev.target.disabled = true;
+      $('#stage').classList.add('talking');
+      const u = new SpeechSynthesisUtterance(pardon); if(VOICE) u.voice = VOICE; u.rate = S.rate;
+      u.onend = u.onerror = () => $('#stage').classList.remove('talking');
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+      if(S.subs) $('#subtitle').textContent = pardon;
+    }});
+    setActions(btns);
+  });
+}
+
+/* ---------- problem card ---------- */
+const POS = [ {x:1,y:1}, {x:51,y:1}, {x:1,y:51}, {x:51,y:51} ];
+function renderCard(mode){
+  const c = S.card, area = $('#cardArea');
+  if(mode === 'none'){ area.innerHTML = ''; return; }
+  if(mode === 'back'){
+    area.innerHTML = `<div class="pcard back"><div><b class="en">EIKEN Grade Pre-1</b><br><span class="small">問題カードは裏返しています</span></div></div>`;
+    return;
+  }
+  const overlays = c.panels.map((p, i) => {
+    const o = POS[i];
+    let h = `<span class="pnum" style="left:${o.x+0.6}%;top:${o.y+ (p.time?7.5:1.2)}%">${i+1}</span>`;
+    if(p.time) h += `<span class="badge" style="left:${o.x+0.6}%;top:${o.y+0.8}%">${esc(p.time)}</span>`;
+    if(p.note) h += `<span class="note" style="left:${o.x+1}%;top:${o.y+36}%">${esc(p.note)}</span>`;
+    return h;
+  }).join('');
+  const fb = `<div class="fallback">${c.panels.map((p,i)=>`<div><b>${i+1}${p.time?' — '+esc(p.time):''}</b><br>${esc(p.scene)}${p.note?`<br><span class="en">${esc(p.note)}</span>`:''}</div>`).join('')}</div>`;
+  area.innerHTML = `<div class="pcard">
+    <div class="hd"><span class="en">Grade Pre-1 — Card ${c.id}</span><span>受験者用問題カード</span></div>
+    <div class="ins en">You have one minute to prepare.<br>${esc(c.story)} You have two minutes to narrate the story.<br>Your story should begin with the following sentence:
+      <span class="first">${esc(c.firstSentence)}</span></div>
+    <div class="pics" id="pics"><img id="pimg" alt="4コマのイラスト">${overlays}</div>
+  </div>`;
+  const img = $('#pimg'); let tried = 0; const exts = ['.jpg','.png','.webp'];
+  img.onerror = () => { tried++; if(tried < exts.length) img.src = c.image + exts[tried]; else $('#pics').outerHTML = fb; };
+  img.src = c.image + exts[0];
+}
+
+/* ---------- exam flow ---------- */
+$('#startBtn').onclick = startExam;
+$('#abortBtn').onclick = () => { if(confirm('面接を中断してトップに戻りますか？')) abortExam(); };
+
+function abortExam(){
+  S.aborted = true; speechSynthesis.cancel(); clearClock(); setActions([]);
+  if(S._finish) S._finish('abort');
+  if(S._rej) S._rej(new Abort());
+  $('#abortBtn').hidden = true; show('home');
+}
+
+async function startExam(){
+  S.student = { cls: $('#sCls').value.trim(), no: $('#sNo').value.trim(), name: $('#sName').value.trim() };
+  store.set('p1_student', S.student);
+  S.subs = $('#optSub').checked; store.set('p1_subs', S.subs);
+  S.live = $('#optLive').checked; store.set('p1_live', S.live);
+  S.skip = $('#optSkip').checked;
+  S.rate = Number($('#optRate').value);
+  S.input = document.querySelector('input[name=inMode]:checked').value;
+  if(S.input === 'voice' && !SR) S.input = 'type';
+  const id = selected === 'random' ? CARDS[Math.floor(Math.random()*CARDS.length)].id : selected;
+  S.card = CARDS.find(c => c.id === id) || CARDS[0];
+  S.answers = {}; S.audio = {}; S.pardons = 0; S.aborted = false;
+  if(S.input === 'voice'){
+    try{ await ensureMic(); }catch(e){ toast('マイクが使えないため、キーボード入力にします'); S.input = 'type'; }
+  }
+  S.mode = document.querySelector('input[name=runMode]:checked').value;
+  show('exam'); $('#abortBtn').hidden = false; renderCard('none'); $('#subtitle').textContent = '';
+  $('#stage').classList.remove('inside'); hideGuide(); setStep(0);
+  $('#stepsBox').classList.remove('hidden');
+  try{ await runExam(); }
+  catch(e){ if(!(e instanceof Abort)) { console.error(e); toast('エラー: ' + e.message); } }
+}
+
+async function runExam(){
+  const c = S.card, A = S.answers, Q = c.questions;
+  const G = S.mode !== 'real';           // ガイドあり
+  const short = (key, label, hint, max = 8) => listen(key, { label, hint, max: G ? max + 6 : max });
+  setActions([]);
+
+  /* STEP1 受験の準備 */
+  await guide(0, {
+    text: '控室では、面接カードに必要事項を記入して、係員の指示があるまで静かに待ちます。携帯電話の電源は切っておきましょう。準備ができたら、面接室の前に移動します。',
+    cp: '面接カードは記入してありますか。面接では、すべて英語でやりとりします。'
+  });
+
+  /* STEP2 入室 */
+  await guide(1, {
+    text: '係員の指示に従い、面接室に入ります。ドアをノックして、May I come in? と声をかけてから入りましょう。',
+    line: 'May I come in?'
+  });
+  await waitAction('ドアをノックする', 'ノックしてから、英語で入室の許可を求めます。');
+  await knock();
+  A.enter = await short('enter', '入室のあいさつ', '例：May I come in?');
+  await say("Please come in.");
+  $('#stage').classList.add('inside');
+  await sleep(700);
+  await say("Hello.");
+  A.hello = await short('hello', 'あいさつを返す', '例：Hello. / Good morning.');
+
+  /* STEP3 面接カードを渡す */
+  await guide(2, {
+    text: '面接委員に「面接カード」を手渡します。',
+    cp: '面接カードは、着席する前に手渡します。',
+    line: 'Here you are.'
+  });
+  await say("Can I have your card, please?");
+  A.card = await short('card', '面接カードを渡す', '例：Here you are.');
+  await waitAction('面接カードを渡す');
+  await say("Thank you.");
+
+  /* STEP4 着席 */
+  await guide(3, {
+    text: '面接委員の指示に従って、着席します。',
+    line: 'Thank you.'
+  });
+  await say("Please have a seat.");
+  A.sit = await short('sit', 'お礼を言う', '例：Thank you.');
+  await waitAction('着席する');
+
+  /* STEP5 氏名・級の確認、簡単な質問 */
+  await guide(4, {
+    text: '面接委員が、あなたの氏名と、これから受験する級を確認します。そのあと、簡単な質問をします。',
+    cp: 'ここはまだ採点の対象外ですが、はっきり、自然に答えましょう。',
+    line: 'My name is ____.'
+  });
+  await say("May I have your name, please?");
+  A.name = await listen('name', { label: '名前を答える', hint: '例：My name is ____.', max: ANSWER_SEC.name });
+  await say(`My name is ${EXAMINER_NAME}. This is the Grade Pre-1 test. OK?`);
+  A.ok = await listen('ok', { label: '返事をする', hint: '例：OK. / Yes.', max: ANSWER_SEC.ok });
+  await say("All right. Could you tell me a little about yourself?");
+  A.free = await listen('free', { label: '簡単な質問（自己紹介）', hint: '2〜3文で、学校生活や趣味などを話しましょう。（採点はアティチュードの参考のみ）', max: ANSWER_SEC.free });
+
+  /* STEP6 問題カードを受け取る */
+  await guide(5, {
+    text: '面接委員から「問題カード」が手渡されます。',
+    cp: '問題カードには、指示文と4コマのイラストが印刷されています。',
+    line: 'Thank you.'
+  });
+  await say("Thank you. Now, let's begin the test. Here's your card.");
+  renderCard('front');
+  A.take = await short('take', 'カードを受け取る', '例：Thank you.', 6);
+
+  if(S.mode === 'entry'){ await entryDone(); return; }
+
+  /* STEP7 考慮時間 */
+  await guide(6, {
+    text: 'ここから試験本番です。問題カードの指示文を黙読し、ナレーションの内容を考えます。',
+    cp: '考える時間は1分間です。メモを取ることはできません。'
+  });
+  await say("You have one minute to prepare before you start your narration.");
+  await prep(60);
+
+  /* STEP8 Narration */
+  note(7, 'ナレーションは2分間。カードに印刷された言い出しの文を必ず使って始めます。2分を過ぎると途中でも中止されます。');
+  await say("All right. Please begin your narration. You have two minutes.");
+  A.narration = await listen('narration', { label: 'ナレーション（2分）', hint: '言い出しの文から始めて、4コマ目まで話しましょう。2分で打ち切られます。', max: ANSWER_SEC.narration });
+  await say("Thank you.");
+
+  /* STEP9 No.1 */
+  note(8, 'No.1はイラストに関する質問です。答えるときは問題カードを見てかまいません。');
+  await say("Now, I'll ask you four questions.");
+  await say("Question number one. " + Q[0]);
+  A.q1 = await listen('q1', { label: 'No.1', hint: 'カードを見て答えてOK。例：I\'d be thinking, “…”', max: ANSWER_SEC.q1, pardon: Q[0] });
+
+  /* STEP10 裏返す */
+  note(9, '面接委員の指示で、問題カードを裏返して置きます。');
+  await say("Now, please turn over the card and put it down.");
+  await waitAction('カードを裏返す');
+  renderCard('back');
+
+  /* STEP11 No.2〜4 */
+  note(10, '自然な流れでの聞き返しは減点されません。立場をはっきりさせ、理由を添えて答えましょう。');
+  for(let i = 1; i <= 3; i++){
+    const nums = ['two','three','four'];
+    await say(`Question number ${nums[i-1]}. ${Q[i]}`);
+    A['q'+(i+1)] = await listen('q'+(i+1), { label: `No.${i+1}`, hint: '立場をはっきりさせ、理由を2つほど添えましょう。', max: ANSWER_SEC['q'+(i+1)], pardon: Q[i] });
+    if(i < 3) await sleep(200);
+  }
+
+  /* STEP12 返す */
+  note(11, '試験が終わったら、問題カードを必ず面接委員に返します。');
+  await say("That's all. Thank you. May I have the card back, please?");
+  A.back = await short('back', 'カードを返す', '例：Here you are.', 6);
+  await waitAction('問題カードを返す');
+  renderCard('none');
+
+  /* STEP13 退室 */
+  await say("Thank you. You may go now.");
+  A.bye1 = await short('bye1', 'お礼を言う', '例：Thank you very much.', 6);
+  await say("Goodbye. Have a nice day.");
+  A.bye2 = await short('bye2', 'あいさつをして退室', '例：Goodbye. You too.', 6);
+  if(G){
+    await guide(12, {
+      text: '席を立ち、退室します。おつかれさまでした。このあと評価シートが表示されます。',
+      cp: '本番では、退室後に控室へ戻ったり、待っている受験者と話したりしてはいけません。'
+    });
+  } else setStep(12);
+  setStep(13); hideGuide();
+  $('#abortBtn').hidden = true;
+  await evaluate();
+}
+
+async function entryDone(){
+  setStep(6);
+  const g = $('#guide'); g.classList.remove('hidden');
+  $('#gStep').textContent = '入室〜試験開始の練習 おわり';
+  $('#gText').textContent = 'ここで試験本番（考える時間）に入ります。もう一度くり返すか、通し練習に進みましょう。';
+  $('#gCp').classList.add('hidden'); $('#gSay').classList.add('hidden');
+  setPhase('おわり', ''); setActions([]);
+  sayJa('入室から試験開始までの練習はここまでです。もう一度くり返すか、通し練習に進みましょう。');
+  const ga = $('#gActions'); ga.innerHTML = '';
+  const again = document.createElement('button'); again.className = 'btn primary'; again.textContent = 'もう一度';
+  again.onclick = () => { speechSynthesis.cancel(); startExam(); };
+  const full = document.createElement('button'); full.className = 'btn'; full.textContent = '通し練習へ';
+  full.onclick = () => { speechSynthesis.cancel(); document.querySelector('input[name=runMode][value=guided]').checked = true; startExam(); };
+  const top = document.createElement('button'); top.className = 'btn ghost'; top.textContent = 'トップへ';
+  top.onclick = () => { speechSynthesis.cancel(); $('#abortBtn').hidden = true; goHome(); };
+  ga.append(again, full, top);
+}
+
+/* ---------- evaluation ---------- */
+function payload(){
+  const c = S.card;
+  return {
+    app: 'eiken-p1-mensetsu', version: 1,
+    student: S.student,
+    card: { id: c.id, title: c.title, topic: c.topic, story: c.story, firstSentence: c.firstSentence,
+            panels: c.panels, questions: c.questions, modelNarration: c.modelNarration },
+    answers: { free: S.answers.free, narration: S.answers.narration, q1: S.answers.q1, q2: S.answers.q2, q3: S.answers.q3, q4: S.answers.q4 },
+    pardons: S.pardons, inputMode: S.input
+  };
+}
+function parseJSONLoose(t){
+  if(typeof t !== 'string') return t;
+  t = t.trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+  const s = t.indexOf('{'), e = t.lastIndexOf('}');
+  return JSON.parse(s >= 0 ? t.slice(s, e+1) : t);
+}
+async function evaluate(){
+  show('result');
+  const R = $('#result');
+  const url = gasUrl();
+  if(!url){ renderManual('採点用のURLがまだ設定されていません。'); return; }
+  R.innerHTML = `<div class="card loading"><div><div class="spin"></div><b>面接官が採点しています…</b><p class="small muted">20〜40秒ほどかかります</p></div></div>`;
+  try{
+    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload()) });
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error || '採点に失敗しました');
+    renderResult(parseJSONLoose(j.result));
+  }catch(e){
+    console.error(e);
+    renderManual('自動採点に接続できませんでした（' + esc(e.message) + '）。');
+  }
+}
+function renderManual(reason){
+  const prompt = buildEvalPrompt(payload());
+  $('#result').innerHTML = `<div class="card">
+    <h2 style="margin:0 0 6px;font-size:19px">Geminiで採点する</h2>
+    <p class="small muted">${reason} 下の手順で採点できます。</p>
+    <ol class="small">
+      <li>「採点用の文をコピー」を押し、Gemini に貼り付けて送信します。</li>
+      <li>Gemini の返事（{ で始まる文）を全部コピーして、下の欄に貼り付けます。</li>
+      <li>「評価シートを表示」を押します。</li>
+    </ol>
+    <div class="row"><button class="btn primary" id="cpBtn">採点用の文をコピー</button><a class="btn" href="https://gemini.google.com/app" target="_blank" rel="noopener">Gemini を開く</a></div>
+    <textarea class="f" id="pasteBack" style="margin-top:12px;min-height:140px" placeholder="ここに Gemini の返事を貼り付け"></textarea>
+    <div class="row" style="margin-top:10px"><button class="btn primary" id="pbBtn">評価シートを表示</button><span class="sp"></span><button class="btn ghost" id="homeBtn2">トップに戻る</button></div>
+  </div>`;
+  $('#cpBtn').onclick = async () => { try{ await navigator.clipboard.writeText(prompt); toast('コピーしました'); }catch(e){ const t=document.createElement('textarea'); t.value=prompt; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); toast('コピーしました'); } };
+  $('#pbBtn').onclick = () => { try{ renderResult(parseJSONLoose($('#pasteBack').value)); }catch(e){ toast('読み取れませんでした。{ から } までを貼り付けてください'); } };
+  $('#homeBtn2').onclick = goHome;
+}
+function goHome(){ renderCards(); renderHist(); show('home'); }
+
+const SEC_META = [
+  { id:'narration', name:'ナレーション', maxC:8, maxA:7 },
+  { id:'q1', name:'No.1', maxC:3, maxA:2 },
+  { id:'q2', name:'No.2', maxC:3, maxA:2 },
+  { id:'q3', name:'No.3', maxC:3, maxA:2 },
+  { id:'q4', name:'No.4', maxC:3, maxA:2 }
+];
+const clamp = (v, max) => Math.max(0, Math.min(max, Math.round(Number(v) || 0)));
+
+function renderResult(res){
+  const c = S.card, A = S.answers;
+  const secs = SEC_META.map(m => {
+    const s = (res.sections || []).find(x => x.id === m.id) || {};
+    return { ...m, c: clamp(s.content, m.maxC), a: clamp(s.accuracy, m.maxA), s };
+  });
+  const att = clamp(res.attitude && res.attitude.score, 3);
+  const cTot = secs.reduce((t,x)=>t+x.c,0), aTot = secs.reduce((t,x)=>t+x.a,0);
+  const total = cTot + aTot + att;
+  const qText = { narration: c.firstSentence, q1: c.questions[0], q2: c.questions[1], q3: c.questions[2], q4: c.questions[3] };
+  const date = new Date().toLocaleString('ja-JP', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  // history
+  const h = store.get('p1_hist', []);
+  h.push({ date, card: c.id, title: c.title, total, parts: [...secs.map(x=>x.c+x.a), att] });
+  store.set('p1_hist', h.slice(-60));
+
+  const secHtml = secs.map(x => {
+    const ans = A[x.id] || {};
+    return `<div class="sec">
+      <h3>${x.name}<span class="pt">${x.c + x.a} / ${x.maxC + x.maxA}</span><span class="small muted">内容 ${x.c}/${x.maxC}・正確さ ${x.a}/${x.maxA}</span></h3>
+      <div class="q en">${esc(qText[x.id])}</div>
+      <div class="two">
+        <div class="cmt c"><div class="h">内容</div>${esc(x.s.contentComment || '')}</div>
+        <div class="cmt a"><div class="h">英語の正確さ</div>${esc(x.s.accuracyComment || '')}</div>
+      </div>
+      <details><summary>あなたの回答（音声認識）${S.audio[x.id] ? '・録音' : ''}</summary>
+        <div class="yours en">${esc(ans.text || '（聞き取れませんでした）')}</div>
+        <div class="small muted">話した時間 ${ans.durationSec ?? '-'}秒・${ans.words || 0}語${ans.latencySec!=null ? '・話し始めまで ' + ans.latencySec + '秒' : ''}</div>
+        ${S.audio[x.id] ? `<audio controls src="${S.audio[x.id]}" style="width:100%;margin-top:6px"></audio>` : ''}
+      </details>
+      ${x.s.improved ? `<details open><summary>ブラッシュアップ例</summary><div class="improved en">${esc(x.s.improved)}</div></details>` : ''}
+    </div>`;
+  }).join('');
+
+  const corr = (res.corrections || []).filter(x => x && (x.original || x.corrected));
+  const exps = (res.nextExpressions || []).filter(x => x && x.expression);
+  const secName = id => (SEC_META.find(m => m.id === id) || {}).name || '';
+
+  $('#result').innerHTML = `
+  <div class="card">
+    <div class="row small muted" style="margin-bottom:10px">
+      <span>${esc([S.student.cls, S.student.no && S.student.no + '番', S.student.name].filter(Boolean).join(' '))}</span>
+      <span>Card ${c.id}「${esc(c.title)}」</span><span>${esc(date)}</span>
+    </div>
+    <div class="score-hero">
+      <div><div class="total">${total}<small> / 38</small></div><div class="small muted" style="margin-top:6px">合格の目安はおよそ6割前後（練習用の推定です）</div></div>
+      <div class="meters">
+        <div class="meter"><div class="lb"><span>内容</span><b>${cTot} / 20</b></div><div class="bar"><i style="width:${cTot/20*100}%"></i></div></div>
+        <div class="meter acc"><div class="lb"><span>英語の正確さ</span><b>${aTot} / 15</b></div><div class="bar"><i style="width:${aTot/15*100}%"></i></div></div>
+        <div class="meter"><div class="lb"><span>アティチュード（推定）</span><b>${att} / 3</b></div><div class="bar"><i style="width:${att/3*100}%"></i></div></div>
+      </div>
+    </div>
+    ${res.overall ? `<p style="margin:16px 0 0">${esc(res.overall)}</p>` : ''}
+  </div>
+
+  <h2 class="st">セクション別の評価</h2>
+  <div class="card">${secHtml}
+    <div class="sec"><h3>アティチュード<span class="pt">${att} / 3</span></h3><div class="small">${esc((res.attitude && res.attitude.comment) || '')}${S.pardons ? `（聞き返し ${S.pardons}回）` : ''}</div></div>
+  </div>
+
+  <h2 class="st">間違ったところの修正版</h2>
+  <div class="card">${corr.length ? `<table class="corr"><tr><th style="width:70px">場所</th><th>あなたの表現 → 修正版</th><th style="width:34%">ポイント</th></tr>
+    ${corr.map(x => `<tr><td class="small">${esc(secName(x.section))}</td><td class="en"><div class="o">${esc(x.original)}</div><div class="n">${esc(x.corrected)}</div></td><td class="small">${esc(x.point)}</td></tr>`).join('')}</table>`
+    : '<p class="muted">大きな誤りは見つかりませんでした。</p>'}</div>
+
+  <h2 class="st">次に使える表現</h2>
+  <div class="exps">${exps.map(x => `<div class="exp"><div class="e en">${esc(x.expression)}</div><div class="m">${esc(x.meaning)}</div>${x.example ? `<div class="x en">${esc(x.example)}</div>` : ''}</div>`).join('')}</div>
+
+  <h2 class="st">模範例</h2>
+  <div class="card">
+    <div class="small muted">ナレーション</div>
+    <p class="en" style="margin:4px 0 14px">${esc(c.modelNarration)}</p>
+    <div class="small muted">No.1 の答え方の例</div>
+    <p class="en" style="margin:4px 0 14px">${esc(c.modelQ1)}</p>
+    <div class="small muted">No.2〜No.4 の論点の例</div>
+    <ul class="small" style="margin:4px 0 0">${(c.points||[]).map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+  </div>
+
+  <div class="row noprint" style="margin-top:20px">
+    <button class="btn" id="printBtn">印刷・PDFで保存</button>
+    <span class="sp"></span>
+    <button class="btn" id="againBtn">同じカードでもう一度</button>
+    <button class="btn primary" id="homeBtn">トップに戻る</button>
+  </div>`;
+  $('#printBtn').onclick = () => { document.querySelectorAll('#result details').forEach(d => d.open = true); window.print(); };
+  $('#againBtn').onclick = () => { selected = c.id; startExam(); };
+  $('#homeBtn').onclick = goHome;
+}
+
+renderCards(); renderHist();
+</script>
+</body>
+</html>
