@@ -2,363 +2,469 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>準1級 面接ルーム</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
 <style>
+/* ===== tokens ===== */
 :root{
-  --bg:#f3efe7; --paper:#fffdf8; --ink:#23262b; --sub:#6b6f76; --line:#ddd6c8;
-  --accent:#1f5f5b; --accent-2:#e8f0ee; --warn:#b4552d; --warn-2:#f8eae3;
-  --gold:#c08a2c; --good:#2f7a4a; --rec:#d23c3c;
-  --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(40,30,10,.06);
+  --paper:#F3F6FA; --surface:#FFFFFF; --ink:#1B2433; --sub:#5D6878; --line:#DCE2EA; --line-2:#C9D2DE;
+  --blue:#2457C5; --blue-soft:#E8EFFC; --amber:#C98A0E; --amber-soft:#FBF1DC; --red:#D64545; --green:#2F7D55;
+  --r-lg:18px; --r-md:12px; --r-sm:8px;
+  --lift:0 1px 2px rgba(27,36,51,.06), 0 8px 24px rgba(27,36,51,.06);
+  --dock-h:0px;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#1b1c1e; --paper:#25272a; --ink:#ecebe7; --sub:#a4a7ad; --line:#3a3c40;
-    --accent:#6fb8ad; --accent-2:#26393a; --warn:#e5926b; --warn-2:#3d2b24;
-    --gold:#d9a94e; --good:#6cc08b; --rec:#ff6b6b; --shadow:none;
+    --paper:#12161D; --surface:#1A2029; --ink:#E7ECF3; --sub:#9AA6B6; --line:#2A3340; --line-2:#36404F;
+    --blue:#7FA6F5; --blue-soft:#1E2B44; --amber:#E2AE4A; --amber-soft:#33291A; --red:#F07474; --green:#6CC497;
+    --lift:none; color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#1b1c1e; --paper:#25272a; --ink:#ecebe7; --sub:#a4a7ad; --line:#3a3c40;
-  --accent:#6fb8ad; --accent-2:#26393a; --warn:#e5926b; --warn-2:#3d2b24;
-  --gold:#d9a94e; --good:#6cc08b; --rec:#ff6b6b; --shadow:none;
+  --paper:#12161D; --surface:#1A2029; --ink:#E7ECF3; --sub:#9AA6B6; --line:#2A3340; --line-2:#36404F;
+  --blue:#7FA6F5; --blue-soft:#1E2B44; --amber:#E2AE4A; --amber-soft:#33291A; --red:#F07474; --green:#6CC497;
+  --lift:none; color-scheme: dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
 .en{font-family:"Literata",Georgia,serif}
-button{font:inherit;cursor:pointer}
-.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
-.hidden{display:none!important}
-header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.brand{display:flex;align-items:baseline;gap:10px}
-.brand h1{font-size:20px;margin:0;letter-spacing:.04em}
-.brand span{color:var(--sub);font-size:13px}
-.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:10px 18px;border-radius:999px;font-weight:500;transition:.15s}
-.btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{filter:brightness(1.08)}
-.btn.big{padding:14px 28px;font-size:17px}
-.btn.ghost{background:transparent;border-color:transparent;color:var(--sub)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 55%,transparent);outline-offset:2px;border-radius:6px}
+.hidden,[hidden]{display:none!important}
 .muted{color:var(--sub)}
-.small{font-size:13px}
-label.f{display:block;font-size:13px;color:var(--sub);margin-bottom:4px}
-input.f,select.f,textarea.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
-.grid3{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px}
-@media(max-width:640px){.grid3{grid-template-columns:1fr 1fr}.grid3>div:last-child{grid-column:1/-1}}
+.small{font-size:13.5px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 
-/* ---------- Home ---------- */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch}
-@media(max-width:860px){.hero{grid-template-columns:1fr}}
-.flow{counter-reset:s;list-style:none;padding:0;margin:8px 0 0}
-.flow li{position:relative;padding:6px 0 6px 34px;border-bottom:1px dashed var(--line);font-size:14px}
-.flow li:last-child{border:0}
-.flow li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:7px;width:22px;height:22px;border-radius:50%;background:var(--accent-2);color:var(--accent);font-size:12px;font-weight:700;display:grid;place-items:center}
-.flow b{font-weight:700}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
-.pick{border:1.5px solid var(--line);border-radius:12px;padding:12px;background:var(--paper);text-align:left;color:var(--ink)}
-.pick:hover{border-color:var(--accent)}
-.pick.on{border-color:var(--accent);background:var(--accent-2)}
-.pick .no{font-size:12px;color:var(--sub)}
-.pick .tt{font-weight:700}
-.pick .tp{font-size:12px;color:var(--sub)}
-.pick .best{font-size:12px;color:var(--gold);margin-top:4px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.sp{flex:1}
-.opt{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;margin-top:10px}
-.opt label{display:flex;gap:6px;align-items:center}
-.notice{background:var(--warn-2);color:var(--warn);border-radius:10px;padding:10px 14px;font-size:14px}
-.hist{font-size:14px;width:100%;border-collapse:collapse}
-.hist td,.hist th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface);font-weight:500;font-size:15px;transition:background .15s,border-color .15s}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.big{min-height:54px;padding:0 28px;font-size:17px;font-weight:700}
+.btn.quiet{border-color:transparent;background:transparent;color:var(--sub)}
+.btn.quiet:hover{color:var(--ink);background:var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+a.btn{text-decoration:none}
+
+/* ===== app bar ===== */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;min-height:58px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;white-space:nowrap}
+.logo i{width:28px;height:28px;border-radius:8px;background:var(--ink);display:grid;place-items:center}
+.logo i::after{content:"";width:12px;height:15px;border-radius:2px;background:var(--paper);box-shadow:3px -3px 0 -1px var(--amber)}
+.bar .grow{flex:1;min-width:0}
+.prog{display:flex;align-items:center;gap:12px;min-width:0}
+.prog .lbl{display:flex;gap:8px;align-items:baseline;min-width:0;white-space:nowrap}
+.prog .lbl b{font-variant-numeric:tabular-nums;color:var(--blue);font-size:14px}
+.prog .lbl span{font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.segs{display:flex;gap:3px;flex:1;max-width:320px;min-width:80px}
+.segs i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.segs i.done{background:var(--blue)}
+.segs i.now{background:var(--amber)}
+.flowbtn{min-height:34px;padding:0 12px;font-size:13px;white-space:nowrap;flex:none}
+.flowpop{position:absolute;right:16px;top:60px;width:min(360px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--lift),0 20px 40px rgba(27,36,51,.12);padding:12px 14px;z-index:30}
+.flowpop ol{list-style:none;margin:0;padding:0}
+.flowpop li{display:flex;gap:10px;padding:5px 2px;font-size:14px;color:var(--sub)}
+.flowpop li b{width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;font-size:11.5px;font-weight:700}
+.flowpop li.done{color:var(--ink)}
+.flowpop li.done b{background:var(--blue);border-color:var(--blue);color:#fff}
+.flowpop li.now{color:var(--ink);font-weight:700}
+.flowpop li.now b{background:var(--amber);border-color:var(--amber);color:#fff}
+@media(max-width:720px){
+  .bar-in{flex-wrap:wrap;gap:8px 12px}
+  .bar.exam .logo span{display:none}
+  .bar.exam .grow{order:3;flex-basis:100%}
+  .bar.exam .logo{flex:1}
+  .segs{max-width:none}
+}
+
+/* ===== page wrap ===== */
+main{max-width:1180px;margin:0 auto;padding:24px 16px calc(40px + var(--dock-h))}
+
+/* ===== HOME ===== */
+.home{max-width:760px;margin:0 auto}
+.home h1{font-size:clamp(26px,4.4vw,34px);line-height:1.35;margin:8px 0 6px;letter-spacing:.01em}
+.home .lead{margin:0 0 24px;color:var(--sub);max-width:36em}
+.blk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;margin-bottom:14px}
+.blk h2{font-size:16px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.blk h2 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:12.5px}
+.fields{display:grid;grid-template-columns:110px 90px 1fr;gap:10px}
+@media(max-width:560px){.fields{grid-template-columns:1fr 1fr}.fields>div:last-child{grid-column:1/-1}}
+label.f{display:block;font-size:12.5px;color:var(--sub);margin-bottom:4px}
+input.f,select.f,textarea.f{width:100%;min-height:44px;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
+input.f:focus,textarea.f:focus,select.f:focus{border-color:var(--blue);outline:none}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:640px){.modes{grid-template-columns:1fr}}
+.mode{position:relative;display:block;border:1.5px solid var(--line);border-radius:var(--r-md);padding:14px;cursor:pointer;background:var(--surface)}
+.mode input{position:absolute;opacity:0;pointer-events:none}
+.mode b{display:block;font-size:15px;margin-bottom:2px}
+.mode span{display:block;font-size:13px;color:var(--sub);line-height:1.6}
+.mode:has(input:checked){border-color:var(--blue);background:var(--blue-soft);box-shadow:inset 0 0 0 1px var(--blue)}
+.mode:has(input:focus-visible){outline:3px solid color-mix(in srgb,var(--blue) 55%,transparent)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:640px){.cards{grid-template-columns:repeat(2,1fr)}}
+.pick{display:flex;flex-direction:column;text-align:left;padding:0;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--surface);overflow:hidden}
+.pick .th{aspect-ratio:4/3;background:var(--line) center/cover no-repeat;border-bottom:1px solid var(--line)}
+.pick .tx{padding:9px 11px 11px}
+.pick .tt{font-weight:700;font-size:14.5px;line-height:1.4}
+.pick .tp{font-size:12.5px;color:var(--sub)}
+.pick .best{font-size:12px;color:var(--amber);font-weight:700;margin-top:2px}
+.pick.on{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.pick.on .tt{color:var(--blue)}
+.pick.rand .th{display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);font-size:30px;font-weight:700}
+details.fold{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);margin-bottom:14px}
+details.fold>summary{list-style:none;cursor:pointer;padding:16px 20px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--sub);border-bottom:2px solid var(--sub);transform:rotate(45deg);transition:transform .2s}
+details.fold[open]>summary::after{transform:rotate(-135deg)}
+details.fold>summary small{font-weight:400;color:var(--sub);font-size:13px}
+.fold-in{padding:0 20px 18px}
+.opts{display:grid;gap:14px}
+.opt-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.opt-row .k{font-size:14.5px}
+.opt-row .k small{display:block;color:var(--sub);font-size:12.5px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;background:var(--paper)}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;padding:6px 14px;border-radius:999px;font-size:13.5px;cursor:pointer;color:var(--sub)}
+.seg input:checked+span{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:0 1px 3px rgba(27,36,51,.12)}
+.seg input:focus-visible+span{outline:3px solid color-mix(in srgb,var(--blue) 55%,transparent)}
+.sw{position:relative;width:46px;height:28px;flex:none}
+.sw input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;z-index:1}
+.sw i{position:absolute;inset:0;border-radius:999px;background:var(--line-2);transition:background .15s}
+.sw i::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw input:checked+i{background:var(--blue)}
+.sw input:checked+i::after{transform:translateX(18px)}
+.sw input:focus-visible+i{outline:3px solid color-mix(in srgb,var(--blue) 55%,transparent);outline-offset:2px}
+.notice{background:var(--amber-soft);color:var(--ink);border-radius:var(--r-sm);padding:10px 14px;font-size:14px;border-left:4px solid var(--amber)}
+.hist{width:100%;border-collapse:collapse;font-size:13.5px}
+.hist td,.hist th{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
 .hist th{color:var(--sub);font-weight:500;font-size:12px}
+.hist-wrap{overflow-x:auto}
+.flowlist{margin:0;padding-left:1.3em;font-size:14px}
+.flowlist li{padding:2px 0}
+.startbar{position:sticky;bottom:0;z-index:10;margin:18px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.startbar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.startbar .sum{flex:1;min-width:0;font-size:13.5px;color:var(--sub);line-height:1.5}
+.startbar .sum b{color:var(--ink);display:block;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:480px){.startbar .btn.big{padding:0 20px}}
 
-/* ---------- Exam ---------- */
-.room{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
-@media(max-width:900px){.room{grid-template-columns:1fr}}
-.stage{background:linear-gradient(180deg,#dfe7e4 0%,#eef1ec 62%,#c8b79a 62%,#bba987 100%);border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3.3}
-:root[data-theme="dark"] .stage{filter:brightness(.82)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stage{filter:brightness(.82)}}
+/* ===== EXAM ===== */
+.room{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.room{grid-template-columns:1fr;gap:12px}}
+.leftcol{display:flex;flex-direction:column;gap:14px;position:sticky;top:84px}
+@media(max-width:900px){.leftcol{position:static}}
+.stage{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:400/300;background:#dde6ec;transition:height .3s}
 .stage svg{position:absolute;inset:0;width:100%;height:100%}
-#mouth{transition:transform .08s}
+:root[data-theme="dark"] .stage svg{filter:brightness(.85)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stage svg{filter:brightness(.85)}}
 .talking #mouth{animation:talk .22s infinite alternate}
 @keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.25)}}
-#eyes{animation:blink 4.2s infinite;transform-origin:center 112px}
+#eyes{animation:blink 4.2s infinite;transform-origin:200px 138px}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-.sub{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(20,22,25,.82);color:#fff;border-radius:10px;padding:8px 12px;font-size:15px;line-height:1.5;min-height:20px}
-.sub:empty{display:none}
-.side{display:flex;flex-direction:column;gap:12px}
-.status{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.phase{font-weight:700;font-size:15px}
-.clock{font-variant-numeric:tabular-nums;font-size:28px;font-weight:700;letter-spacing:.02em}
-.clock.low{color:var(--warn)}
-.recdot{display:inline-flex;align-items:center;gap:6px;color:var(--rec);font-weight:700;font-size:14px}
-.recdot::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--rec);animation:pulse 1s infinite}
+#door,#examiner{transition:opacity .6s}
+.stage.inside #door{opacity:0}
+.stage:not(.inside) #examiner{opacity:0}
+.speak-dot{position:absolute;left:12px;top:12px;display:none;align-items:center;gap:6px;background:rgba(255,255,255,.92);color:#1B2433;border-radius:999px;padding:3px 10px 3px 8px;font-size:12.5px;font-weight:700}
+.speak-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#2457C5;animation:pulse 1s infinite}
+.talking .speak-dot{display:inline-flex}
 @keyframes pulse{50%{opacity:.25}}
-.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
-.bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s linear}
-.live{font-size:14px;color:var(--sub);background:var(--bg);border-radius:10px;padding:8px 12px;max-height:110px;overflow:auto}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-/* problem card */
-.pcard{background:#fff;color:#1d1d1d;border-radius:8px;border:1px solid #cfc8b8;padding:16px 18px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.pcard .hd{display:flex;justify-content:space-between;font-size:12px;color:#666;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:10px}
+.sub{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(20,26,36,.86);color:#fff;border-radius:10px;padding:8px 12px;font-size:15px;line-height:1.5}
+.sub:empty{display:none}
+/* phone: examiner shrinks when the problem card is on the table */
+@media(max-width:900px){
+  .stage{aspect-ratio:auto;height:min(52vw,260px)}
+  .room.has-card .stage{height:92px}
+  .room.has-card .stage svg{height:220%;top:-28%}
+}
+
+/* dock */
+.dock{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;box-shadow:var(--lift)}
+.dock-top{display:flex;align-items:flex-start;gap:12px}
+.dock-top .txt{flex:1;min-width:0}
+.phase{font-weight:700;font-size:17px;line-height:1.4}
+.hint{font-size:13.5px;color:var(--sub);margin-top:2px}
+.hint:empty{display:none}
+.clock{font-variant-numeric:tabular-nums;font-size:34px;font-weight:700;line-height:1;letter-spacing:.01em}
+.clock.low{color:var(--red)}
+.recdot{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-weight:700;font-size:13px;margin-top:6px}
+.recdot::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--red);animation:pulse 1s infinite}
+.timer{display:flex;flex-direction:column;align-items:flex-end}
+.tbar{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:12px}
+.tbar>i{display:block;height:100%;background:var(--blue);width:0;transition:width .25s linear}
+.live{font-size:14px;color:var(--sub);background:var(--paper);border-radius:var(--r-sm);padding:8px 12px;margin-top:12px;max-height:96px;overflow:auto}
+textarea.typing{min-height:110px;margin-top:12px;line-height:1.6}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.actions:empty{display:none}
+.actions .btn.primary{flex:1;min-width:150px}
+@media(max-width:900px){
+  .dock{position:fixed;left:0;right:0;bottom:0;z-index:15;border-radius:var(--r-lg) var(--r-lg) 0 0;border-bottom:0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(27,36,51,.10)}
+  .clock{font-size:28px}
+  textarea.typing{min-height:84px}
+}
+
+/* guide */
+.guide{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:var(--r-md);padding:14px 16px;margin-bottom:14px}
+.g-head{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--blue);font-weight:700}
+.g-head .wave{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.g-head .wave i{width:3px;height:4px;background:var(--blue);border-radius:2px}
+.guide.speaking .wave i{animation:wv .7s infinite ease-in-out}
+.guide.speaking .wave i:nth-child(2){animation-delay:.15s}
+.guide.speaking .wave i:nth-child(3){animation-delay:.3s}
+@keyframes wv{50%{height:12px}}
+.g-text{margin:6px 0 0;font-size:15.5px;line-height:1.75}
+.g-text:empty{display:none}
+.g-cp{margin-top:10px;background:var(--amber-soft);border-radius:var(--r-sm);padding:8px 12px;font-size:14px}
+.g-cp b{color:var(--amber);margin-right:4px}
+.g-say{margin-top:10px;font-size:14px;color:var(--sub)}
+.g-say .en{color:var(--ink);font-weight:600;font-size:16px}
+.g-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.g-actions:empty{display:none}
+
+/* problem card (the physical card on the desk) */
+.pcard{background:#fff;color:#1d1d1d;border-radius:6px;border:1px solid #cfd6df;padding:16px 18px 18px;box-shadow:0 2px 0 #e4e8ee,0 14px 30px rgba(27,36,51,.10)}
+.pcard .hd{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#667;border-bottom:1px solid #e1e5ea;padding-bottom:6px;margin-bottom:10px}
 .pcard .ins{font-size:15px;line-height:1.6}
-.pcard .first{display:block;margin:6px 0 12px;padding:6px 10px;border:1.5px solid #1d1d1d;font-weight:600}
-.pics{position:relative;border-radius:4px;overflow:hidden;background:#f2f2f2}
+.pcard .first{display:block;margin:8px 0 12px;padding:7px 11px;border:1.5px solid #1d1d1d;font-weight:600}
+.pics{position:relative;border-radius:3px;overflow:hidden;background:#f2f2f2}
 .pics img{display:block;width:100%;height:auto}
-.badge{position:absolute;background:#fff;border:1.5px solid #222;border-radius:4px;padding:1px 7px;font-size:13px;font-weight:600;color:#111;font-family:"Literata",Georgia,serif;white-space:nowrap}
-.note{position:absolute;max-width:46%;background:rgba(255,255,255,.93);border:1px solid #333;border-radius:10px;padding:3px 8px;font-size:12.5px;line-height:1.35;color:#111;font-family:"Literata",Georgia,serif}
+.badge{position:absolute;background:#fff;border:1.5px solid #222;border-radius:4px;padding:1px 7px;font-size:clamp(10px,1.5vw,13px);font-weight:600;color:#111;font-family:"Literata",Georgia,serif;white-space:nowrap}
+.note{position:absolute;max-width:46%;background:rgba(255,255,255,.94);border:1px solid #333;border-radius:10px;padding:3px 8px;font-size:clamp(9.5px,1.4vw,12.5px);line-height:1.35;color:#111;font-family:"Literata",Georgia,serif}
 .pnum{position:absolute;width:20px;height:20px;border-radius:50%;background:#222;color:#fff;font-size:12px;display:grid;place-items:center}
 .fallback{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.fallback div{background:#f6f4ef;border:1px solid #ddd;border-radius:6px;padding:10px;font-size:13px;min-height:110px}
-.fallback b{font-family:"Literata",Georgia,serif}
-.pcard.back{display:grid;place-items:center;min-height:260px;background:repeating-linear-gradient(45deg,#f5f1e8,#f5f1e8 10px,#efe9dc 10px,#efe9dc 20px)}
-.pcard.back div{background:#fff;border:1px solid #ccc;border-radius:6px;padding:14px 22px;text-align:center;color:#555}
-textarea.typing{min-height:120px}
-/* guide & steps */
-.guide{border:1.5px solid var(--accent);background:var(--accent-2);border-radius:var(--radius);padding:14px 16px}
-.guide .gh{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--accent);font-size:14px}
-.guide .gh .ic{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:13px}
-.guide .gt{margin:6px 0 0;font-size:15px}
-.guide .cp{margin-top:8px;background:var(--paper);border-left:4px solid var(--gold);border-radius:6px;padding:6px 10px;font-size:14px}
-.guide .cp b{color:var(--gold)}
-.guide .say{margin-top:8px;font-size:14px}
-.guide .say .en{font-weight:600}
-.guide.speaking .ic{animation:pulse 1s infinite}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;font-size:12.5px}
-.steps li{padding:3px 0 3px 22px;position:relative;color:var(--sub)}
-.steps li::before{content:"";position:absolute;left:4px;top:9px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper)}
-.steps li.done{color:var(--ink)}
-.steps li.done::before{background:var(--accent);border-color:var(--accent)}
-.steps li.now{color:var(--accent);font-weight:700}
-.steps li.now::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 30%,transparent)}
-.mode{display:grid;gap:8px;margin-top:6px}
-.mode label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
-.mode label:has(input:checked){border-color:var(--accent);background:var(--accent-2)}
-.mode input{margin-top:5px}
-.mode b{display:block;font-size:14px}
-.mode span{font-size:12.5px;color:var(--sub)}
-#door{transition:opacity .6s}
-.stage.inside #door{opacity:0;pointer-events:none}
-.stage:not(.inside) #examiner{opacity:0}
-#examiner{transition:opacity .6s}
+.fallback div{background:#f6f7f9;border:1px solid #dde2e8;border-radius:6px;padding:10px;font-size:13px;min-height:110px}
+.pcard.back{display:grid;place-items:center;min-height:240px;background:repeating-linear-gradient(135deg,#eef2f7 0 12px,#e6ebf2 12px 24px)}
+.pcard.back div{background:#fff;border:1px solid #cfd6df;border-radius:6px;padding:14px 22px;text-align:center;color:#556}
+.empty-desk{border:1.5px dashed var(--line-2);border-radius:var(--r-lg);min-height:220px;display:grid;place-items:center;text-align:center;color:var(--sub);font-size:14px;padding:20px}
+@media(max-width:900px){.empty-desk{display:none}}
 
-/* ---------- Result ---------- */
-.score-hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
-@media(max-width:640px){.score-hero{grid-template-columns:1fr}}
-.total{font-size:56px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
-.total small{font-size:20px;color:var(--sub);font-weight:500}
-.meters{display:grid;gap:10px}
+/* ===== RESULT ===== */
+.res{max-width:880px;margin:0 auto}
+.res-head{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px}
+.res-meta{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:13px;color:var(--sub);margin-bottom:12px}
+.score-hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media(max-width:640px){.score-hero{grid-template-columns:1fr;gap:16px}}
+.total{font-size:64px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.total small{font-size:20px;color:var(--sub);font-weight:500;margin-left:4px}
+.meters{display:grid;gap:12px}
 .meter .lb{display:flex;justify-content:space-between;font-size:14px}
-.meter .bar>i{transition:width .8s ease}
-.meter.acc .bar>i{background:var(--gold)}
-.sec{border-top:1px solid var(--line);padding:16px 0}
-.sec:first-child{border-top:0;padding-top:0}
-.sec h3{margin:0 0 6px;font-size:17px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.sec h3 .pt{font-variant-numeric:tabular-nums;color:var(--accent);font-size:15px}
-.sec .q{font-size:14px;color:var(--sub);margin-bottom:8px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meter .tbar{margin-top:5px;height:8px}
+.meter .tbar>i{transition:width .8s ease}
+.meter.acc .tbar>i{background:var(--amber)}
+.meter.att .tbar>i{background:var(--green)}
+.overall{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:15.5px;line-height:1.85}
+.jump{position:sticky;top:58px;z-index:9;display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin:8px 0 4px;background:var(--paper)}
+.jump a{flex:none;text-decoration:none;color:var(--ink);font-size:13.5px;padding:6px 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface)}
+.jump a:hover{border-color:var(--blue)}
+h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;margin-bottom:12px}
+.sec h3{margin:0;font-size:17px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sec h3 .pt{font-variant-numeric:tabular-nums;color:var(--blue)}
+.sec h3 .bd{font-size:12.5px;color:var(--sub);font-weight:500}
+.sec .q{font-size:14px;color:var(--sub);margin:4px 0 12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:700px){.two{grid-template-columns:1fr}}
-.cmt{border-radius:10px;padding:10px 12px;font-size:14px}
-.cmt.c{background:var(--accent-2)}
-.cmt.a{background:color-mix(in srgb,var(--gold) 14%,transparent)}
-.cmt .h{font-weight:700;font-size:13px;margin-bottom:2px}
-details{margin-top:8px;font-size:14px}
-details summary{cursor:pointer;color:var(--accent);font-weight:500}
-.yours{background:var(--bg);border-radius:10px;padding:10px 12px;margin-top:6px}
-.improved{border-left:3px solid var(--accent);padding:6px 12px;margin-top:8px}
-.corr{width:100%;border-collapse:collapse;font-size:14px}
-.corr td,.corr th{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-.corr th{font-size:12px;color:var(--sub);font-weight:500}
-.corr .o{color:var(--warn);text-decoration:line-through;text-decoration-thickness:1px}
-.corr .n{color:var(--good);font-weight:600}
+.cmt{border-radius:var(--r-sm);padding:10px 12px;font-size:14.5px;line-height:1.75}
+.cmt.c{background:var(--blue-soft)}
+.cmt.a{background:var(--amber-soft)}
+.cmt .h{font-weight:700;font-size:12.5px;margin-bottom:2px}
+.sec details{margin-top:10px;font-size:14.5px}
+.sec details summary{cursor:pointer;color:var(--blue);font-weight:500}
+.yours{background:var(--paper);border-radius:var(--r-sm);padding:10px 12px;margin-top:6px}
+.improved{border-left:3px solid var(--blue);padding:4px 12px;margin-top:6px;line-height:1.75}
+.corr{width:100%;border-collapse:collapse;font-size:14.5px}
+.corr td,.corr th{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+.corr th{font-size:12.5px;color:var(--sub);font-weight:500}
+.corr .o{color:var(--red);text-decoration:line-through;text-decoration-thickness:1px}
+.corr .n{color:var(--green);font-weight:600}
+@media(max-width:600px){
+  .corr thead{display:none}
+  .corr tr{display:block;padding:10px 0;border-bottom:1px solid var(--line)}
+  .corr td{display:block;border:0;padding:2px 0}
+}
 .exps{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.exp{border:1px solid var(--line);border-radius:12px;padding:12px}
-.exp .e{font-weight:600;font-size:16px}
-.exp .m{font-size:13px;color:var(--sub)}
-.exp .x{font-size:14px;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
-h2.st{font-size:18px;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
-h2.st::before{content:"";width:6px;height:18px;border-radius:3px;background:var(--accent)}
-.loading{display:grid;place-items:center;min-height:300px;text-align:center}
-.spin{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 14px}
+.exp{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px}
+.exp .e{font-weight:600;font-size:16.5px;line-height:1.45}
+.exp .m{font-size:13.5px;color:var(--sub);margin-top:2px}
+.exp .x{font-size:14.5px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.model p{margin:4px 0 16px;line-height:1.85}
+.model .lb{font-size:13px;color:var(--sub);font-weight:700}
+.res-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.res-actions .sp{flex:1}
+.loading{display:grid;place-items:center;min-height:320px;text-align:center}
+.spin{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto 16px}
 @keyframes sp{to{transform:rotate(360deg)}}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;z-index:50}
+.toast{position:fixed;left:50%;bottom:calc(24px + var(--dock-h));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;z-index:50;max-width:calc(100vw - 32px)}
 @media print{
   body{background:#fff;color:#000}
-  .noprint,header.top{display:none!important}
-  .card{box-shadow:none;border:0;padding:0}
-  .wrap{max-width:none;padding:0}
-  details{display:block}
-  details>summary{display:none}
-  details[open]>*,details>*{display:block}
-  .sec{break-inside:avoid}
+  .noprint,.bar,.jump{display:none!important}
+  main{padding:0}
+  .res-head,.sec,.exp{border-color:#ccc;break-inside:avoid}
+  .sec details>summary{display:none}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top noprint">
-    <div class="brand"><h1>準1級 面接ルーム</h1><span>英検®準1級 二次試験 練習</span></div>
-    <div class="row">
-      <button class="btn ghost small" id="themeBtn" title="表示の明暗を切り替え">◐</button>
-      <button class="btn ghost small" id="abortBtn" hidden>中断する</button>
+<header class="bar" id="bar">
+  <div class="bar-in">
+    <div class="logo"><i aria-hidden="true"></i><span>準1級 面接ルーム</span></div>
+    <div class="grow">
+      <div class="prog hidden" id="prog">
+        <div class="lbl"><b id="stepNum">1/13</b><span id="stepName">受験の準備</span></div>
+        <div class="segs" id="segs" aria-hidden="true"></div>
+        <button class="btn flowbtn" id="flowBtn" aria-expanded="false">流れ</button>
+      </div>
     </div>
-  </header>
+    <button class="btn quiet flowbtn" id="themeBtn" aria-label="表示の明るさを切り替え">明暗</button>
+    <button class="btn flowbtn" id="abortBtn" hidden>中断</button>
+  </div>
+  <div class="flowpop hidden" id="flowPop"><ol id="steps"></ol></div>
+</header>
 
+<main>
   <!-- ======================= HOME ======================= -->
-  <section id="home">
-    <div class="hero">
-      <div class="card">
-        <h2 style="margin:0 0 4px;font-size:20px">本番と同じ流れで、面接官と練習しよう</h2>
-        <p class="muted small" style="margin:0 0 8px">面接官のセリフは本番とほぼ同じです。答え終わったら「話し終えた」を押します。最後にAIが採点し、修正版の表現と次に使える表現を返します。</p>
-        <ol class="flow">
-          <li><b>入室・あいさつ</b>　面接カードを渡し、名前と簡単な質問に答える</li>
-          <li><b>黙読・考える時間 1分</b>　問題カードの指示文と4コマを見て準備（メモ不可）</li>
-          <li><b>ナレーション 2分</b>　指定の言い出しで始め、4コマのストーリーを話す</li>
-          <li><b>No.1</b>　イラストに関する質問（「もしあなたが〜だったら」）</li>
-          <li><b>No.2〜No.4</b>　カードを裏返し、社会的な話題についての質問に答える</li>
-          <li><b>評価シート</b>　内容・英語の正確さ／修正版の表現／次に使える表現</li>
-        </ol>
-      </div>
-      <div class="card">
-        <div class="grid3">
-          <div><label class="f" for="sCls">クラス</label><input class="f" id="sCls" placeholder="例 2-3"></div>
-          <div><label class="f" for="sNo">番号</label><input class="f" id="sNo" inputmode="numeric" placeholder="例 12"></div>
-          <div><label class="f" for="sName">名前</label><input class="f" id="sName" placeholder="例 桜丘 花子"></div>
-        </div>
-        <div style="margin-top:14px">
-          <label class="f">練習のしかた</label>
-          <div class="mode">
-            <label><input type="radio" name="runMode" value="guided" checked><div><b>ガイドつきで通し練習</b><span>音声ガイドが入室から試験開始までを案内します。各場面を「もう一度」聞き直せます。</span></div></label>
-            <label><input type="radio" name="runMode" value="entry"><div><b>入室〜試験開始だけ練習</b><span>あいさつ・カードの受け渡し・着席・名前の確認までをくり返し練習します。</span></div></label>
-            <label><input type="radio" name="runMode" value="real"><div><b>本番モード</b><span>ガイドなし。面接官とのやりとりだけで最後まで進みます。</span></div></label>
-          </div>
-        </div>
-        <div style="margin-top:14px">
-          <label class="f">問題カードを選ぶ</label>
-          <div class="cards" id="cardList"></div>
-        </div>
-        <div class="opt">
-          <label><input type="checkbox" id="optSub"> 面接官の字幕を表示</label>
-          <label><input type="checkbox" id="optLive"> 自分の発話を表示</label>
-          <label><input type="checkbox" id="optSkip" checked> 考える時間をスキップ可</label>
-        </div>
-        <div class="opt">
-          <label><input type="radio" name="inMode" value="voice" checked> 声で答える</label>
-          <label><input type="radio" name="inMode" value="type"> キーボードで答える</label>
-          <label>話す速さ <select id="optRate" class="f" style="width:auto;padding:4px 8px"><option value="0.85">ゆっくり</option><option value="0.95" selected>ふつう</option><option value="1.05">本番より少し速め</option></select></label>
-        </div>
-        <div id="srWarn" class="notice hidden" style="margin-top:12px">このブラウザは音声認識に対応していません。Google Chrome で開くか、「キーボードで答える」を選んでください。</div>
-        <div class="row" style="margin-top:16px">
-          <button class="btn ghost small" id="micTest">🎤 マイクと音声を確認</button>
-          <span class="sp"></span>
-          <button class="btn primary big" id="startBtn">面接室に入る</button>
-        </div>
-        <p id="micMsg" class="small muted" style="margin:6px 0 0"></p>
+  <section id="home" class="home">
+    <h1>本番と同じ流れで、<br>面接官と練習しよう</h1>
+    <p class="lead">英検®準1級 二次試験の練習です。入室からナレーション、No.1〜No.4までを声で答えると、最後に内容と英語の正確さの評価が出ます。</p>
+
+    <div class="blk">
+      <h2><span class="n">1</span>あなたの名前</h2>
+      <div class="fields">
+        <div><label class="f" for="sCls">クラス</label><input class="f" id="sCls" placeholder="2-3" autocomplete="off"></div>
+        <div><label class="f" for="sNo">番号</label><input class="f" id="sNo" inputmode="numeric" placeholder="12" autocomplete="off"></div>
+        <div><label class="f" for="sName">名前</label><input class="f" id="sName" placeholder="桜丘 花子" autocomplete="off"></div>
       </div>
     </div>
 
-    <div class="card" style="margin-top:18px" id="histBox">
-      <div class="row"><b>これまでの記録（この端末）</b><span class="sp"></span><button class="btn ghost small" id="histClear">記録を消す</button></div>
-      <div id="histBody" class="small muted">まだ記録はありません。</div>
+    <div class="blk">
+      <h2><span class="n">2</span>練習のしかた</h2>
+      <div class="modes">
+        <label class="mode"><input type="radio" name="runMode" value="guided" checked><b>ガイドつき</b><span>音声ガイドが入室から試験開始まで案内。はじめての人はここから</span></label>
+        <label class="mode"><input type="radio" name="runMode" value="entry"><b>入室だけ</b><span>あいさつ・カードの受け渡し・名前の確認までをくり返す（採点なし）</span></label>
+        <label class="mode"><input type="radio" name="runMode" value="real"><b>本番モード</b><span>ガイドなし。面接官とのやりとりだけで最後まで</span></label>
+      </div>
     </div>
 
-    <details class="card noprint" style="margin-top:18px" id="teacherBox">
-      <summary>先生用の設定</summary>
-      <p class="small muted">採点用 Apps Script の「ウェブアプリURL」を入れると、この端末ではそのURLで採点します（空欄ならアプリに書き込まれたURLを使用）。URLが未設定・接続できないときは、Geminiに貼り付けて採点する方式に自動で切り替わります。</p>
-      <input class="f" id="gasUrl" placeholder="https://script.google.com/macros/s/xxxxx/exec">
-      <div class="row" style="margin-top:8px"><button class="btn small" id="gasSave">保存</button><button class="btn small" id="gasTest">接続テスト</button><span id="gasMsg" class="small muted"></span></div>
+    <div class="blk">
+      <h2><span class="n">3</span>問題カード</h2>
+      <div class="cards" id="cardList"></div>
+    </div>
+
+    <div id="srWarn" class="notice hidden" style="margin-bottom:14px">このブラウザは音声認識に対応していません。Google Chrome で開くか、設定で「キーボード」を選んでください。</div>
+
+    <details class="fold">
+      <summary>設定<small>答え方・字幕・話す速さ</small></summary>
+      <div class="fold-in opts">
+        <div class="opt-row"><div class="k">答え方</div>
+          <div class="seg"><label><input type="radio" name="inMode" value="voice" checked><span>声</span></label><label><input type="radio" name="inMode" value="type"><span>キーボード</span></label></div></div>
+        <div class="opt-row"><div class="k">面接官の話す速さ</div>
+          <div class="seg"><label><input type="radio" name="rate" value="0.85"><span>ゆっくり</span></label><label><input type="radio" name="rate" value="0.95" checked><span>ふつう</span></label><label><input type="radio" name="rate" value="1.05"><span>速め</span></label></div></div>
+        <div class="opt-row"><div class="k">面接官の字幕<small>本番では出ません</small></div><span class="sw"><input type="checkbox" id="optSub" aria-label="面接官の字幕"><i></i></span></div>
+        <div class="opt-row"><div class="k">自分の発話を表示<small>音声がうまく拾えているか確認できます</small></div><span class="sw"><input type="checkbox" id="optLive" aria-label="自分の発話を表示"><i></i></span></div>
+        <div class="opt-row"><div class="k">考える時間を途中で終えられる</div><span class="sw"><input type="checkbox" id="optSkip" checked aria-label="考える時間を途中で終えられる"><i></i></span></div>
+        <div class="opt-row"><div class="k">マイクと音声の確認<small id="micMsg">イヤホンの使用がおすすめです</small></div><button class="btn" id="micTest">確認する</button></div>
+      </div>
     </details>
+
+    <details class="fold">
+      <summary>面接の流れ<small>本番の13ステップ</small></summary>
+      <div class="fold-in"><ol class="flowlist" id="flowList"></ol></div>
+    </details>
+
+    <details class="fold" id="histBox">
+      <summary>これまでの記録<small>この端末だけに保存</small></summary>
+      <div class="fold-in"><div id="histBody" class="small muted">まだ記録はありません。面接を終えるとここに点数が並びます。</div>
+        <div style="margin-top:10px"><button class="btn quiet" id="histClear">記録を消す</button></div></div>
+    </details>
+
+    <details class="fold noprint" id="teacherBox">
+      <summary>先生用の設定</summary>
+      <div class="fold-in">
+        <p class="small muted" style="margin-top:0">採点用 Apps Script のウェブアプリURLを入れると、この端末ではそのURLで採点します。空欄ならアプリに書き込まれたURLを使います。</p>
+        <input class="f" id="gasUrl" placeholder="https://script.google.com/macros/s/xxxxx/exec">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px"><button class="btn" id="gasSave">保存</button><button class="btn" id="gasTest">接続テスト</button><span id="gasMsg" class="small muted"></span></div>
+      </div>
+    </details>
+
+    <div class="startbar">
+      <div class="startbar-in">
+        <div class="sum" id="startSum"></div>
+        <button class="btn primary big" id="startBtn">面接室に入る</button>
+      </div>
+    </div>
   </section>
 
   <!-- ======================= EXAM ======================= -->
   <section id="exam" class="hidden">
-    <div class="room">
-      <div class="side">
+    <div class="room" id="room">
+      <div class="leftcol">
         <div class="stage" id="stage">
-          <svg viewBox="0 0 400 330" aria-label="面接官">
-            <!-- window -->
-            <rect x="250" y="26" width="120" height="96" rx="4" fill="#f7faf8" stroke="#b9c7c1" stroke-width="3"/>
-            <line x1="310" y1="26" x2="310" y2="122" stroke="#b9c7c1" stroke-width="3"/>
-            <line x1="250" y1="74" x2="370" y2="74" stroke="#b9c7c1" stroke-width="3"/>
-            <rect x="36" y="40" width="70" height="54" rx="3" fill="#e9e3d6" stroke="#c7bca6" stroke-width="2"/>
-            <text x="71" y="72" font-size="11" text-anchor="middle" fill="#8a7d66" font-family="Literata,serif">Grade Pre-1</text>
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-label="面接官">
+            <rect width="400" height="300" fill="#DDE6EC"/>
+            <rect x="0" y="0" width="400" height="236" fill="#E6EDF1"/>
+            <rect x="262" y="26" width="108" height="86" rx="4" fill="#F7FAFB" stroke="#BCCAD3" stroke-width="3"/>
+            <line x1="316" y1="26" x2="316" y2="112" stroke="#BCCAD3" stroke-width="3"/>
+            <line x1="262" y1="69" x2="370" y2="69" stroke="#BCCAD3" stroke-width="3"/>
+            <rect x="34" y="40" width="70" height="50" rx="3" fill="#EEF2F6" stroke="#C3CDD6" stroke-width="2"/>
+            <text x="69" y="69" font-size="10.5" text-anchor="middle" fill="#6D7C8A" font-family="Literata,serif">Grade Pre-1</text>
             <g id="examiner">
-            <!-- body -->
-            <path d="M118 330 C118 248 150 214 200 210 C250 214 282 248 282 330 Z" fill="#3f5e6e"/>
-            <path d="M178 212 L200 252 L222 212 Z" fill="#f4f1ea"/>
-            <path d="M186 214 L200 240 L214 214" fill="none" stroke="#e1d9c8" stroke-width="2"/>
-            <rect x="188" y="186" width="24" height="30" rx="8" fill="#e8bf9c"/>
-            <!-- head -->
-            <ellipse cx="200" cy="140" rx="50" ry="58" fill="#efc9a6"/>
-            <path d="M148 132 C146 82 178 70 202 70 C232 70 258 88 252 136 C246 112 230 98 204 98 C180 98 160 108 148 132 Z" fill="#4a3427"/>
-            <path d="M148 132 C140 160 146 186 156 196 C152 170 152 150 156 128 Z" fill="#4a3427"/>
-            <path d="M252 136 C260 160 254 186 244 196 C248 170 248 150 244 128 Z" fill="#4a3427"/>
-            <g id="eyes">
-              <ellipse cx="181" cy="138" rx="5" ry="6" fill="#2a2420"/>
-              <ellipse cx="219" cy="138" rx="5" ry="6" fill="#2a2420"/>
+              <path d="M118 300 C118 232 150 204 200 200 C250 204 282 232 282 300 Z" fill="#3E5A73"/>
+              <path d="M178 202 L200 240 L222 202 Z" fill="#F4F6F8"/>
+              <rect x="188" y="178" width="24" height="28" rx="8" fill="#E8BF9C"/>
+              <ellipse cx="200" cy="134" rx="48" ry="55" fill="#EFC9A6"/>
+              <path d="M150 128 C148 80 178 68 202 68 C232 68 256 86 250 132 C244 108 228 96 204 96 C180 96 162 106 150 128 Z" fill="#3B2C24"/>
+              <path d="M150 128 C142 154 148 178 158 188 C154 164 154 146 158 124 Z" fill="#3B2C24"/>
+              <path d="M250 132 C258 154 252 178 242 188 C246 164 246 146 242 124 Z" fill="#3B2C24"/>
+              <g id="eyes"><ellipse cx="182" cy="134" rx="5" ry="6" fill="#2a2420"/><ellipse cx="218" cy="134" rx="5" ry="6" fill="#2a2420"/></g>
+              <g fill="none" stroke="#4E3E32" stroke-width="2"><rect x="168" y="124" width="28" height="21" rx="9"/><rect x="204" y="124" width="28" height="21" rx="9"/><line x1="196" y1="132" x2="204" y2="132"/></g>
+              <path d="M175 118 q8 -5 16 0 M209 118 q8 -5 16 0" stroke="#3B2C24" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M200 142 q-3 12 0 14" stroke="#C99A78" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="171" cy="157" rx="8" ry="4" fill="#F0A98F" opacity=".45"/><ellipse cx="229" cy="157" rx="8" ry="4" fill="#F0A98F" opacity=".45"/>
+              <g transform="translate(200 168)"><ellipse id="mouth" cx="0" cy="0" rx="10" ry="4" fill="#9C4A43"/></g>
             </g>
-            <g fill="none" stroke="#5b4636" stroke-width="2">
-              <rect x="167" y="128" width="28" height="21" rx="9"/>
-              <rect x="205" y="128" width="28" height="21" rx="9"/>
-              <line x1="195" y1="136" x2="205" y2="136"/>
-            </g>
-            <path d="M174 122 q8 -5 16 0 M210 122 q8 -5 16 0" stroke="#4a3427" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M200 146 q-3 12 0 14" stroke="#c99a78" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <ellipse cx="170" cy="162" rx="8" ry="4" fill="#f0a98f" opacity=".45"/>
-            <ellipse cx="230" cy="162" rx="8" ry="4" fill="#f0a98f" opacity=".45"/>
-            <g transform="translate(200 174)"><ellipse id="mouth" cx="0" cy="0" rx="10" ry="4" fill="#9c4a43"/></g>
-            </g>
-            <!-- desk -->
-            <rect x="0" y="262" width="400" height="68" fill="#a88f6a"/>
-            <rect x="0" y="258" width="400" height="8" fill="#8f7756"/>
-            <rect x="236" y="240" width="78" height="22" rx="2" fill="#fbfaf6" stroke="#d7d0c0" transform="rotate(-4 275 251)"/>
-            <rect x="96" y="246" width="44" height="14" rx="2" fill="#2f3b45"/>
-            <!-- corridor & door (before entering) -->
+            <rect x="0" y="236" width="400" height="64" fill="#9AA9B6"/>
+            <rect x="0" y="232" width="400" height="7" fill="#7F909F"/>
+            <rect x="238" y="216" width="76" height="22" rx="2" fill="#fff" stroke="#D0D7DE" transform="rotate(-4 276 227)"/>
+            <rect x="96" y="222" width="44" height="12" rx="2" fill="#2F3B45"/>
             <g id="door">
-              <rect x="0" y="0" width="400" height="330" fill="#e7e1d4"/>
-              <rect x="0" y="250" width="400" height="80" fill="#cfc4ad"/>
-              <rect x="130" y="40" width="140" height="232" rx="4" fill="#9b7b55" stroke="#7a5f40" stroke-width="4"/>
-              <rect x="146" y="58" width="108" height="86" rx="3" fill="none" stroke="#7a5f40" stroke-width="3"/>
-              <rect x="146" y="160" width="108" height="94" rx="3" fill="none" stroke="#7a5f40" stroke-width="3"/>
-              <circle cx="250" cy="160" r="7" fill="#d9c08a" stroke="#8a6d3a" stroke-width="2"/>
-              <rect x="160" y="16" width="80" height="20" rx="3" fill="#fbfaf6" stroke="#b9ad94"/>
-              <text x="200" y="30" font-size="10" text-anchor="middle" fill="#6b5f4a">面接室 Room 3</text>
-              <rect x="44" y="150" width="58" height="12" rx="2" fill="#8a7a5e"/>
-              <rect x="50" y="162" width="6" height="40" fill="#8a7a5e"/><rect x="90" y="162" width="6" height="40" fill="#8a7a5e"/>
+              <rect width="400" height="300" fill="#E9EEF2"/>
+              <rect x="0" y="236" width="400" height="64" fill="#CBD5DD"/>
+              <rect x="132" y="34" width="136" height="214" rx="4" fill="#8A6F52" stroke="#6E5740" stroke-width="4"/>
+              <rect x="148" y="52" width="104" height="78" rx="3" fill="none" stroke="#6E5740" stroke-width="3"/>
+              <rect x="148" y="146" width="104" height="86" rx="3" fill="none" stroke="#6E5740" stroke-width="3"/>
+              <circle cx="248" cy="148" r="7" fill="#D9C08A" stroke="#8a6d3a" stroke-width="2"/>
+              <rect x="160" y="10" width="80" height="20" rx="3" fill="#fff" stroke="#BFC9D2"/>
+              <text x="200" y="24" font-size="10" text-anchor="middle" fill="#55606B">面接室 Room 3</text>
+              <rect x="40" y="150" width="62" height="11" rx="2" fill="#8E9AA5"/><rect x="46" y="161" width="6" height="40" fill="#8E9AA5"/><rect x="90" y="161" width="6" height="40" fill="#8E9AA5"/>
             </g>
           </svg>
+          <span class="speak-dot">面接官</span>
           <div class="sub" id="subtitle"></div>
         </div>
-        <div class="guide hidden" id="guide">
-          <div class="gh"><span class="ic">♪</span><span id="gStep">STEP 1</span></div>
-          <p class="gt" id="gText"></p>
-          <div class="cp hidden" id="gCp"></div>
-          <div class="say hidden" id="gSay"></div>
-          <div class="actions" style="margin-top:10px" id="gActions"></div>
-        </div>
-        <div class="card">
-          <div class="status">
-            <span class="phase" id="phase">入室</span>
-            <span class="sp"></span>
-            <span class="recdot hidden" id="recdot">録音中</span>
-            <span class="clock hidden" id="clock">0:00</span>
+        <div class="dock" id="dock">
+          <div class="dock-top">
+            <div class="txt"><div class="phase" id="phase">入室</div><div class="hint" id="hint"></div></div>
+            <div class="timer"><span class="clock hidden" id="clock">0:00</span><span class="recdot hidden" id="recdot">録音中</span></div>
           </div>
-          <div class="bar" style="margin-top:8px"><i id="progress"></i></div>
-          <div id="hint" class="small muted" style="margin-top:8px"></div>
-          <div id="live" class="live hidden" style="margin-top:8px"></div>
-          <textarea id="typing" class="f typing hidden en" style="margin-top:8px" placeholder="ここに英語で入力してください"></textarea>
-          <div class="actions" style="margin-top:12px" id="actions"></div>
+          <div class="tbar hidden" id="tbar"><i id="progress"></i></div>
+          <div id="live" class="live hidden"></div>
+          <textarea id="typing" class="f typing hidden en" placeholder="英語で入力"></textarea>
+          <div class="actions" id="actions"></div>
         </div>
       </div>
-      <div>
-        <div class="card hidden" id="stepsBox" style="margin-bottom:14px">
-          <div class="small muted" style="margin-bottom:6px">面接の流れ</div>
-          <ol class="steps" id="steps"></ol>
+      <div class="rightcol">
+        <div class="guide hidden" id="guide">
+          <div class="g-head"><span class="wave" aria-hidden="true"><i></i><i></i><i></i></span><span id="gStep">音声ガイド</span></div>
+          <p class="g-text" id="gText"></p>
+          <div class="g-cp hidden" id="gCp"></div>
+          <div class="g-say hidden" id="gSay"></div>
+          <div class="g-actions" id="gActions"></div>
         </div>
         <div id="cardArea"></div>
       </div>
@@ -366,8 +472,8 @@ h2.st::before{content:"";width:6px;height:18px;border-radius:3px;background:var(
   </section>
 
   <!-- ======================= RESULT ======================= -->
-  <section id="result" class="hidden"></section>
-</div>
+  <section id="result" class="res hidden"></section>
+</main>
 
 <script src="cards.js"></script>
 <script src="prompt.js"></script>
@@ -388,7 +494,21 @@ const store = {
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
 function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
-function show(id){ ['home','exam','result'].forEach(x => $('#'+x).classList.toggle('hidden', x!==id)); window.scrollTo(0,0); }
+function show(id){
+  ['home','exam','result'].forEach(x => $('#'+x).classList.toggle('hidden', x!==id));
+  $('#bar').classList.toggle('exam', id === 'exam');
+  $('#prog').classList.toggle('hidden', id !== 'exam');
+  $('#flowPop').classList.add('hidden');
+  window.scrollTo(0,0); syncDock();
+}
+/* スマホでは操作パネルが画面下に固定されるので、その高さ分だけ余白を空ける */
+function syncDock(){
+  const d = $('#dock');
+  const fixed = d && !$('#exam').classList.contains('hidden') && getComputedStyle(d).position === 'fixed';
+  document.documentElement.style.setProperty('--dock-h', fixed ? d.offsetHeight + 'px' : '0px');
+}
+addEventListener('resize', syncDock);
+if(window.ResizeObserver) new ResizeObserver(syncDock).observe(document.getElementById('dock'));
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 class Abort extends Error {}
 
@@ -415,20 +535,30 @@ function bestOf(id){
 function renderCards(){
   $('#cardList').innerHTML = CARDS.map(c => {
     const b = bestOf(c.id);
-    return `<button class="pick ${c.id===selected?'on':''}" data-id="${c.id}">
-      <div class="no">Card ${c.id}</div><div class="tt">${esc(c.title)}</div>
-      <div class="tp en">${esc(c.topic)}</div>${b!=null?`<div class="best">ベスト ${b}/38</div>`:''}</button>`;
-  }).join('') + `<button class="pick ${selected==='random'?'on':''}" data-id="random"><div class="no">?</div><div class="tt">ランダム</div><div class="tp">本番のように</div></button>`;
+    return `<button class="pick ${c.id===selected?'on':''}" data-id="${c.id}" aria-pressed="${c.id===selected}">
+      <span class="th" style="background-image:url('${c.image}.jpg')"></span>
+      <span class="tx"><span class="tt" style="display:block">${esc(c.title)}</span><span class="tp en" style="display:block">${esc(c.topic)}</span>${b!=null?`<span class="best" style="display:block">ベスト ${b} / 38</span>`:''}</span></button>`;
+  }).join('') + `<button class="pick rand ${selected==='random'?'on':''}" data-id="random" aria-pressed="${selected==='random'}"><span class="th">?</span><span class="tx"><span class="tt" style="display:block">ランダム</span><span class="tp" style="display:block">本番のように、どれが出るか分からない</span></span></button>`;
   document.querySelectorAll('.pick').forEach(b => b.onclick = () => {
     selected = b.dataset.id === 'random' ? 'random' : Number(b.dataset.id);
     store.set('p1_last_card', selected); renderCards();
   });
+  updateSum();
 }
+const MODE_NAME = { guided:'ガイドつき', entry:'入室だけ', real:'本番モード' };
+function updateSum(){
+  const m = (document.querySelector('input[name=runMode]:checked') || {}).value || 'guided';
+  const c = selected === 'random' ? null : CARDS.find(x => x.id === selected);
+  const who = [$('#sCls').value.trim(), $('#sNo').value.trim() && $('#sNo').value.trim() + '番', $('#sName').value.trim()].filter(Boolean).join(' ');
+  $('#startSum').innerHTML = `<b>${esc(MODE_NAME[m])}、${c ? esc(c.title) : 'ランダム'}</b>${who ? esc(who) : '名前を入れると記録に残ります'}`;
+}
+document.querySelectorAll('input[name=runMode]').forEach(r => r.addEventListener('change', updateSum));
+['#sCls','#sNo','#sName'].forEach(id => $(id).addEventListener('input', updateSum));
 function renderHist(){
   const h = store.get('p1_hist', []);
   if(!h.length){ $('#histBody').innerHTML = 'まだ記録はありません。'; return; }
-  $('#histBody').innerHTML = `<table class="hist"><tr><th>日時</th><th>カード</th><th>合計</th><th>ナレーション</th><th>No.1</th><th>No.2</th><th>No.3</th><th>No.4</th><th>態度</th></tr>` +
-    h.slice(-12).reverse().map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.title)}</td><td><b>${x.total}</b>/38</td>${x.parts.map(p=>`<td>${p}</td>`).join('')}</tr>`).join('') + `</table>`;
+  $('#histBody').innerHTML = `<div class="hist-wrap"><table class="hist"><tr><th>日時</th><th>カード</th><th>合計</th><th>ナレーション</th><th>No.1</th><th>No.2</th><th>No.3</th><th>No.4</th><th>態度</th></tr>` +
+    h.slice(-12).reverse().map(x => `<tr><td>${esc(x.date)}</td><td>${esc(x.title)}</td><td><b>${x.total}</b>/38</td>${x.parts.map(p=>`<td>${p}</td>`).join('')}</tr>`).join('') + `</table></div>`;
 }
 $('#histClear').onclick = () => { if(confirm('この端末の記録をすべて消しますか？')){ store.set('p1_hist', []); renderHist(); renderCards(); } };
 const stu = store.get('p1_student', {});
@@ -448,6 +578,7 @@ $('#gasTest').onclick = async () => {
   catch(e){ $('#gasMsg').textContent = '接続できません: ' + e.message; }
 };
 
+function getRate(){ const r = document.querySelector('input[name=rate]:checked'); return r ? Number(r.value) : 0.95; }
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 /* iPhoneでは cancel 直後の speak が無音になることがあるので、話し中のときだけ止めて少し待つ */
 function speakSafe(u){
@@ -512,8 +643,19 @@ const STEPS = ['受験の準備','入室','「面接カード」を渡す','着�
   'Narrationの考慮時間','Narration','Q&A（No.1）','「問題カード」を裏返す','Q&A（No.2〜No.4）','「問題カード」を返す','退室'];
 function setStep(i){
   S.step = i;
-  $('#steps').innerHTML = STEPS.map((s, k) => `<li class="${k < i ? 'done' : k === i ? 'now' : ''}">${k+1}. ${esc(s)}</li>`).join('');
+  const n = Math.min(i, STEPS.length - 1);
+  $('#stepNum').textContent = `${Math.min(i+1, STEPS.length)}/${STEPS.length}`;
+  $('#stepName').textContent = STEPS[n];
+  $('#segs').innerHTML = STEPS.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('');
+  $('#steps').innerHTML = STEPS.map((s, k) => `<li class="${k < i ? 'done' : k === i ? 'now' : ''}"><b>${k+1}</b>${esc(s)}</li>`).join('');
 }
+$('#flowList').innerHTML = STEPS.map(s => `<li>${esc(s)}</li>`).join('');
+$('#flowBtn').onclick = (e) => {
+  e.stopPropagation();
+  const p = $('#flowPop'), open = p.classList.toggle('hidden') === false;
+  $('#flowBtn').setAttribute('aria-expanded', open);
+};
+document.addEventListener('click', e => { if(!e.target.closest('#flowPop')) { $('#flowPop').classList.add('hidden'); $('#flowBtn').setAttribute('aria-expanded', false); } });
 function hideGuide(){ $('#guide').classList.add('hidden'); }
 /* 音声ガイド：読み上げ → 「もう一度聞く」「次へ」 */
 function guide(i, { text, cp, line, wait = true }){
@@ -521,7 +663,7 @@ function guide(i, { text, cp, line, wait = true }){
   setStep(i);
   if(S.mode === 'real'){ hideGuide(); return Promise.resolve(); }
   const g = $('#guide'); g.classList.remove('hidden');
-  $('#gStep').textContent = `STEP ${i+1}　${STEPS[i]}`;
+  $('#gStep').textContent = `音声ガイド　${STEPS[i]}`;
   $('#gText').textContent = text;
   $('#gCp').classList.toggle('hidden', !cp); $('#gCp').innerHTML = cp ? `<b>チェックポイント！</b> ${esc(cp)}` : '';
   $('#gSay').classList.toggle('hidden', !line); $('#gSay').innerHTML = line ? `言ってみよう：<span class="en">${esc(line)}</span>` : '';
@@ -530,10 +672,10 @@ function guide(i, { text, cp, line, wait = true }){
   setActions([]); setPhase(STEPS[i], '');
   return new Promise((res, rej) => {
     S._rej = rej;
-    const replay = document.createElement('button'); replay.className = 'btn small'; replay.textContent = '↻ もう一度聞く';
+    const replay = document.createElement('button'); replay.className = 'btn'; replay.textContent = 'もう一度聞く';
     replay.onclick = () => sayJa(spoken);
     if(!wait){ sayJa(spoken).then(() => { ga.innerHTML = ''; ga.appendChild(replay); res(); }); return; }
-    const next = document.createElement('button'); next.className = 'btn primary'; next.textContent = '次へ ▶';
+    const next = document.createElement('button'); next.className = 'btn primary'; next.textContent = '次へ';
     next.onclick = () => { speechSynthesis.cancel(); ga.innerHTML = ''; ga.appendChild(replay); res(); };
     ga.append(replay, next);
     sayJa(spoken);
@@ -544,7 +686,7 @@ function note(i, cp){
   setStep(i);
   if(S.mode === 'real'){ hideGuide(); return; }
   const g = $('#guide'); g.classList.remove('hidden');
-  $('#gStep').textContent = `STEP ${i+1}　${STEPS[i]}`;
+  $('#gStep').textContent = STEPS[i];
   $('#gText').textContent = '';
   $('#gCp').classList.remove('hidden'); $('#gCp').innerHTML = `<b>チェックポイント！</b> ${esc(cp)}`;
   $('#gSay').classList.add('hidden'); $('#gActions').innerHTML = '';
@@ -573,8 +715,8 @@ async function ensureMic(){
 $('#micTest').onclick = async () => {
   try{
     await ensureMic();
-    $('#micMsg').textContent = 'マイクOK。面接官の声が聞こえるか確認してください。';
-    S.rate = Number($('#optRate').value);
+    $('#micMsg').textContent = 'マイクOK。面接官の声が聞こえれば準備完了です';
+    S.rate = getRate();
     const u = new SpeechSynthesisUtterance("Hello. Can you hear me clearly?"); if(VOICE) u.voice = VOICE; u.rate = S.rate;
     speakSafe(u);
   }catch(e){ $('#micMsg').textContent = 'マイクが使えません。ブラウザのマイク許可を確認してください。（' + e.name + '）'; }
@@ -582,7 +724,7 @@ $('#micTest').onclick = async () => {
 
 /* ---------- UI pieces in exam ---------- */
 let tickTimer = null;
-function setPhase(t, hint=''){ $('#phase').textContent = t; $('#hint').textContent = hint; }
+function setPhase(t, hint=''){ $('#phase').textContent = t; $('#hint').textContent = S.mode === 'real' ? '' : hint; }  /* 本番モードでは例文・ヒントを出さない */
 function setActions(btns){
   const a = $('#actions'); a.innerHTML = '';
   btns.forEach(b => { const el = document.createElement('button'); el.className = 'btn ' + (b.cls||''); el.textContent = b.label; el.onclick = b.onclick; if(b.id) el.id = b.id; a.appendChild(el); });
@@ -590,7 +732,7 @@ function setActions(btns){
 function fmt(sec){ sec = Math.max(0, Math.ceil(sec)); return Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0'); }
 function countdown(total, onTick){
   const start = performance.now();
-  $('#clock').classList.remove('hidden');
+  $('#clock').classList.remove('hidden'); $('#tbar').classList.remove('hidden');
   return () => {
     const el = (performance.now() - start)/1000, left = total - el;
     $('#clock').textContent = fmt(left);
@@ -600,7 +742,7 @@ function countdown(total, onTick){
     return left;
   };
 }
-function clearClock(){ clearInterval(tickTimer); $('#clock').classList.add('hidden'); $('#progress').style.width = '0'; $('#recdot').classList.add('hidden'); }
+function clearClock(){ clearInterval(tickTimer); $('#clock').classList.add('hidden'); $('#tbar').classList.add('hidden'); $('#progress').style.width = '0'; $('#recdot').classList.add('hidden'); }
 
 function waitAction(label, hint){
   check();
@@ -722,7 +864,8 @@ function listen(key, { label, hint, max, pardon }){
 const POS = [ {x:1,y:1}, {x:51,y:1}, {x:1,y:51}, {x:51,y:51} ];
 function renderCard(mode){
   const c = S.card, area = $('#cardArea');
-  if(mode === 'none'){ area.innerHTML = ''; return; }
+  $('#room').classList.toggle('has-card', mode !== 'none');
+  if(mode === 'none'){ area.innerHTML = `<div class="empty-desk">問題カードは、試験が始まるときに<br>面接官から渡されます</div>`; return; }
   if(mode === 'back'){
     area.innerHTML = `<div class="pcard back"><div><b class="en">EIKEN Grade Pre-1</b><br><span class="small">問題カードは裏返しています</span></div></div>`;
     return;
@@ -754,7 +897,7 @@ function abortExam(){
   S.aborted = true; speechSynthesis.cancel(); clearClock(); setActions([]); recStop();
   if(S._finish) S._finish('abort');
   if(S._rej) S._rej(new Abort());
-  $('#abortBtn').hidden = true; show('home');
+  $('#abortBtn').hidden = true; goHome();
 }
 
 async function startExam(){
@@ -764,7 +907,7 @@ async function startExam(){
   S.subs = $('#optSub').checked; store.set('p1_subs', S.subs);
   S.live = $('#optLive').checked; store.set('p1_live', S.live);
   S.skip = $('#optSkip').checked;
-  S.rate = Number($('#optRate').value);
+  S.rate = getRate();
   S.input = document.querySelector('input[name=inMode]:checked').value;
   if(S.input === 'voice' && !SR) S.input = 'type';
   const id = selected === 'random' ? CARDS[Math.floor(Math.random()*CARDS.length)].id : selected;
@@ -777,7 +920,6 @@ async function startExam(){
   S.mode = document.querySelector('input[name=runMode]:checked').value;
   show('exam'); $('#abortBtn').hidden = false; renderCard('none'); $('#subtitle').textContent = '';
   $('#stage').classList.remove('inside'); hideGuide(); setStep(0);
-  $('#stepsBox').classList.remove('hidden');
   try{ await runExam(); }
   catch(e){ if(!(e instanceof Abort)) { console.error(e); toast('エラー: ' + e.message); } }
 }
@@ -925,7 +1067,7 @@ async function entryDone(){
   again.onclick = () => { speechSynthesis.cancel(); startExam(); };
   const full = document.createElement('button'); full.className = 'btn'; full.textContent = '通し練習へ';
   full.onclick = () => { speechSynthesis.cancel(); document.querySelector('input[name=runMode][value=guided]').checked = true; startExam(); };
-  const top = document.createElement('button'); top.className = 'btn ghost'; top.textContent = 'トップへ';
+  const top = document.createElement('button'); top.className = 'btn quiet'; top.textContent = 'トップへ';
   top.onclick = () => { speechSynthesis.cancel(); $('#abortBtn').hidden = true; goHome(); };
   ga.append(again, full, top);
 }
@@ -968,7 +1110,7 @@ async function evaluate(){
   const R = $('#result');
   const url = gasUrl();
   if(!url){ renderManual('採点用のURLがまだ設定されていません。'); return; }
-  R.innerHTML = `<div class="card loading"><div><div class="spin"></div><b>面接官が採点しています…</b><p class="small muted">30秒〜1分ほどかかります。<br><b>この画面を開いたまま</b>お待ちください（画面を閉じたり、別のアプリに切り替えたりすると採点が止まります）。</p><p class="small muted" id="evalMsg"></p></div></div>`;
+  R.innerHTML = `<div class="res-head loading"><div><div class="spin"></div><b>面接官が採点しています…</b><p class="small muted">30秒〜1分ほどかかります。<br><b>この画面を開いたまま</b>お待ちください（画面を閉じたり、別のアプリに切り替えたりすると採点が止まります）。</p><p class="small muted" id="evalMsg"></p></div></div>`;
   keepAwake(true);
   const body = JSON.stringify(payload());
   let lastErr = null;
@@ -995,18 +1137,18 @@ async function evaluate(){
 }
 function renderManual(reason, canRetry){
   const prompt = buildEvalPrompt(payload());
-  $('#result').innerHTML = `<div class="card">
-    <h2 style="margin:0 0 6px;font-size:19px">Geminiで採点する</h2>
-    <p class="small" style="color:var(--warn)">${reason}</p>
-    ${canRetry ? `<div class="row" style="margin:8px 0 14px"><button class="btn primary" id="retryBtn">もう一度、自動で採点する</button></div><p class="small muted">それでもできないときは、下の手順で Gemini で採点できます。</p>` : '<p class="small muted">下の手順で採点できます。</p>'}
-    <ol class="small">
+  $('#result').innerHTML = `<div class="res-head">
+    <h2 style="margin:0 0 8px;font-size:20px">${canRetry ? '自動採点できませんでした' : 'Gemini で採点する'}</h2>
+    <p class="notice" style="margin:0 0 14px">${reason}</p>
+    ${canRetry ? `<button class="btn primary big" id="retryBtn">もう一度、自動で採点する</button><p class="small muted" style="margin:16px 0 4px">それでもできないときは、Gemini で採点できます。</p>` : ''}
+    <ol class="small" style="padding-left:1.3em">
       <li>「採点用の文をコピー」を押し、Gemini に貼り付けて送信します。</li>
       <li>Gemini の返事（{ で始まる文）を全部コピーして、下の欄に貼り付けます。</li>
       <li>「評価シートを表示」を押します。</li>
     </ol>
-    <div class="row"><button class="btn primary" id="cpBtn">採点用の文をコピー</button><a class="btn" href="https://gemini.google.com/app" target="_blank" rel="noopener">Gemini を開く</a></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="cpBtn">採点用の文をコピー</button><a class="btn" href="https://gemini.google.com/app" target="_blank" rel="noopener">Gemini を開く</a></div>
     <textarea class="f" id="pasteBack" style="margin-top:12px;min-height:140px" placeholder="ここに Gemini の返事を貼り付け"></textarea>
-    <div class="row" style="margin-top:10px"><button class="btn primary" id="pbBtn">評価シートを表示</button><span class="sp"></span><button class="btn ghost" id="homeBtn2">トップに戻る</button></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="pbBtn">評価シートを表示</button><span style="flex:1"></span><button class="btn quiet" id="homeBtn2">トップに戻る</button></div>
   </div>`;
   $('#cpBtn').onclick = async () => { try{ await navigator.clipboard.writeText(prompt); toast('コピーしました'); }catch(e){ const t=document.createElement('textarea'); t.value=prompt; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); toast('コピーしました'); } };
   $('#pbBtn').onclick = () => { try{ renderResult(parseJSONLoose($('#pasteBack').value)); }catch(e){ toast('読み取れませんでした。{ から } までを貼り付けてください'); } };
@@ -1044,15 +1186,15 @@ function renderResult(res){
   const secHtml = secs.map(x => {
     const ans = A[x.id] || {};
     return `<div class="sec">
-      <h3>${x.name}<span class="pt">${x.c + x.a} / ${x.maxC + x.maxA}</span><span class="small muted">内容 ${x.c}/${x.maxC}・正確さ ${x.a}/${x.maxA}</span></h3>
+      <h3>${x.name}<span class="pt">${x.c + x.a} / ${x.maxC + x.maxA}</span><span class="bd">内容 ${x.c}/${x.maxC}、正確さ ${x.a}/${x.maxA}</span></h3>
       <div class="q en">${esc(qText[x.id])}</div>
       <div class="two">
         <div class="cmt c"><div class="h">内容</div>${esc(x.s.contentComment || '')}</div>
         <div class="cmt a"><div class="h">英語の正確さ</div>${esc(x.s.accuracyComment || '')}</div>
       </div>
-      <details><summary>あなたの回答（音声認識）${S.audio[x.id] ? '・録音' : ''}</summary>
+      <details><summary>あなたの回答${S.audio[x.id] ? 'と録音' : ''}</summary>
         <div class="yours en">${esc(ans.text || '（聞き取れませんでした）')}</div>
-        <div class="small muted">話した時間 ${ans.durationSec ?? '-'}秒・${ans.words || 0}語${ans.latencySec!=null ? '・話し始めまで ' + ans.latencySec + '秒' : ''}</div>
+        <div class="small muted" style="margin-top:4px">話した時間 ${ans.durationSec ?? '-'}秒、${ans.words || 0}語${ans.latencySec!=null ? '、話し始めまで ' + ans.latencySec + '秒' : ''}</div>
         ${S.audio[x.id] ? `<audio controls src="${S.audio[x.id]}" style="width:100%;margin-top:6px"></audio>` : ''}
       </details>
       ${x.s.improved ? `<details open><summary>ブラッシュアップ例</summary><div class="improved en">${esc(x.s.improved)}</div></details>` : ''}
@@ -1064,46 +1206,49 @@ function renderResult(res){
   const secName = id => (SEC_META.find(m => m.id === id) || {}).name || '';
 
   $('#result').innerHTML = `
-  <div class="card">
-    <div class="row small muted" style="margin-bottom:10px">
-      <span>${esc([S.student.cls, S.student.no && S.student.no + '番', S.student.name].filter(Boolean).join(' '))}</span>
+  <div class="res-head">
+    <div class="res-meta">
+      <span>${esc([S.student.cls, S.student.no && S.student.no + '番', S.student.name].filter(Boolean).join(' ') || '名前なし')}</span>
       <span>Card ${c.id}「${esc(c.title)}」</span><span>${esc(date)}</span>
     </div>
     <div class="score-hero">
-      <div><div class="total">${total}<small> / 38</small></div><div class="small muted" style="margin-top:6px">合格の目安はおよそ6割前後（練習用の推定です）</div></div>
+      <div><div class="total">${total}<small>/ 38</small></div><div class="small muted" style="margin-top:8px">合格の目安はおよそ6割前後<br>（練習用の推定です）</div></div>
       <div class="meters">
-        <div class="meter"><div class="lb"><span>内容</span><b>${cTot} / 20</b></div><div class="bar"><i style="width:${cTot/20*100}%"></i></div></div>
-        <div class="meter acc"><div class="lb"><span>英語の正確さ</span><b>${aTot} / 15</b></div><div class="bar"><i style="width:${aTot/15*100}%"></i></div></div>
-        <div class="meter"><div class="lb"><span>アティチュード（推定）</span><b>${att} / 3</b></div><div class="bar"><i style="width:${att/3*100}%"></i></div></div>
+        <div class="meter"><div class="lb"><span>内容</span><b>${cTot} / 20</b></div><div class="tbar"><i style="width:${cTot/20*100}%"></i></div></div>
+        <div class="meter acc"><div class="lb"><span>英語の正確さ</span><b>${aTot} / 15</b></div><div class="tbar"><i style="width:${aTot/15*100}%"></i></div></div>
+        <div class="meter att"><div class="lb"><span>アティチュード（推定）</span><b>${att} / 3</b></div><div class="tbar"><i style="width:${att/3*100}%"></i></div></div>
       </div>
     </div>
-    ${res.overall ? `<p style="margin:16px 0 0">${esc(res.overall)}</p>` : ''}
+    ${res.overall ? `<p class="overall">${esc(res.overall)}</p>` : ''}
   </div>
 
-  <h2 class="st">セクション別の評価</h2>
-  <div class="card">${secHtml}
-    <div class="sec"><h3>アティチュード<span class="pt">${att} / 3</span></h3><div class="small">${esc((res.attitude && res.attitude.comment) || '')}${S.pardons ? `（聞き返し ${S.pardons}回）` : ''}</div></div>
-  </div>
+  <nav class="jump noprint" aria-label="評価シートの目次">
+    <a href="#r-sec">セクション別</a><a href="#r-corr">修正版</a><a href="#r-exp">次に使える表現</a><a href="#r-model">模範例</a>
+  </nav>
 
-  <h2 class="st">間違ったところの修正版</h2>
-  <div class="card">${corr.length ? `<table class="corr"><tr><th style="width:70px">場所</th><th>あなたの表現 → 修正版</th><th style="width:34%">ポイント</th></tr>
-    ${corr.map(x => `<tr><td class="small">${esc(secName(x.section))}</td><td class="en"><div class="o">${esc(x.original)}</div><div class="n">${esc(x.corrected)}</div></td><td class="small">${esc(x.point)}</td></tr>`).join('')}</table>`
-    : '<p class="muted">大きな誤りは見つかりませんでした。</p>'}</div>
+  <h2 class="st" id="r-sec">セクション別の評価</h2>
+  ${secHtml}
+  <div class="sec"><h3>アティチュード<span class="pt">${att} / 3</span></h3><p class="small" style="margin:6px 0 0">${esc((res.attitude && res.attitude.comment) || '')}${S.pardons ? `（聞き返し ${S.pardons}回）` : ''}</p></div>
 
-  <h2 class="st">次に使える表現</h2>
+  <h2 class="st" id="r-corr">間違ったところの修正版</h2>
+  <div class="sec">${corr.length ? `<table class="corr"><thead><tr><th style="width:84px">場所</th><th>あなたの表現と修正版</th><th style="width:34%">ポイント</th></tr></thead><tbody>
+    ${corr.map(x => `<tr><td class="small muted">${esc(secName(x.section))}</td><td class="en"><div class="o">${esc(x.original)}</div><div class="n">${esc(x.corrected)}</div></td><td class="small">${esc(x.point)}</td></tr>`).join('')}</tbody></table>`
+    : '<p class="muted" style="margin:0">大きな誤りは見つかりませんでした。</p>'}</div>
+
+  <h2 class="st" id="r-exp">次に使える表現</h2>
   <div class="exps">${exps.map(x => `<div class="exp"><div class="e en">${esc(x.expression)}</div><div class="m">${esc(x.meaning)}</div>${x.example ? `<div class="x en">${esc(x.example)}</div>` : ''}</div>`).join('')}</div>
 
-  <h2 class="st">模範例</h2>
-  <div class="card">
-    <div class="small muted">ナレーション</div>
-    <p class="en" style="margin:4px 0 14px">${esc(c.modelNarration)}</p>
-    <div class="small muted">No.1 の答え方の例</div>
-    <p class="en" style="margin:4px 0 14px">${esc(c.modelQ1)}</p>
-    <div class="small muted">No.2〜No.4 の論点の例</div>
-    <ul class="small" style="margin:4px 0 0">${(c.points||[]).map(p => `<li>${esc(p)}</li>`).join('')}</ul>
+  <h2 class="st" id="r-model">模範例</h2>
+  <div class="sec model">
+    <div class="lb">ナレーション</div>
+    <p class="en">${esc(c.modelNarration)}</p>
+    <div class="lb">No.1 の答え方の例</div>
+    <p class="en">${esc(c.modelQ1)}</p>
+    <div class="lb">No.2〜No.4 の論点の例</div>
+    <ul class="small" style="margin:6px 0 0;padding-left:1.2em">${(c.points||[]).map(p => `<li>${esc(p)}</li>`).join('')}</ul>
   </div>
 
-  <div class="row noprint" style="margin-top:20px">
+  <div class="res-actions noprint">
     <button class="btn" id="printBtn">印刷・PDFで保存</button>
     <span class="sp"></span>
     <button class="btn" id="againBtn">同じカードでもう一度</button>
