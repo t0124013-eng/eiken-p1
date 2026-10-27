@@ -448,6 +448,14 @@ $('#gasTest').onclick = async () => {
   catch(e){ $('#gasMsg').textContent = '接続できません: ' + e.message; }
 };
 
+const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+/* iPhoneでは cancel 直後の speak が無音になることがあるので、話し中のときだけ止めて少し待つ */
+function speakSafe(u){
+  const ss = window.speechSynthesis;
+  const go = () => { try{ ss.resume(); }catch(e){} ss.speak(u); };
+  if(ss.speaking || ss.pending){ ss.cancel(); setTimeout(go, IOS ? 120 : 30); }
+  else if(IOS) setTimeout(go, 30); else go();
+}
 /* ---------- voice ---------- */
 let VOICE = null;
 function pickVoice(){
@@ -470,7 +478,7 @@ function say(text){
     if(VOICE) u.voice = VOICE;
     u.lang = (VOICE && VOICE.lang) || 'en-US'; u.rate = S.rate;
     u.onend = fin; u.onerror = fin;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    speakSafe(u);
     setTimeout(fin, 2500 + text.length * 110 / S.rate);
   }).then(() => sleep(250)).then(check);
 }
@@ -494,7 +502,7 @@ function sayJa(text){
     const u = new SpeechSynthesisUtterance(text);
     if(JA) u.voice = JA; u.lang = 'ja-JP'; u.rate = 1.05;
     u.onend = fin; u.onerror = fin;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    speakSafe(u);
     setTimeout(fin, 2500 + text.length * 190);
   });
 }
@@ -551,6 +559,7 @@ function knock(){
       g.gain.setValueAtTime(.9, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + t + .12);
       o.connect(g).connect(ctx.destination); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + .14);
     });
+    setTimeout(() => { try{ ctx.close(); }catch(e){} }, 900);
   }catch(e){}
   return sleep(900);
 }
@@ -567,7 +576,7 @@ $('#micTest').onclick = async () => {
     $('#micMsg').textContent = 'マイクOK。面接官の声が聞こえるか確認してください。';
     S.rate = Number($('#optRate').value);
     const u = new SpeechSynthesisUtterance("Hello. Can you hear me clearly?"); if(VOICE) u.voice = VOICE; u.rate = S.rate;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    speakSafe(u);
   }catch(e){ $('#micMsg').textContent = 'マイクが使えません。ブラウザのマイク許可を確認してください。（' + e.name + '）'; }
 };
 
@@ -625,6 +634,26 @@ function startRecorder(){
   }catch(e){ return null; }
 }
 
+/* 音声認識は面接のあいだ1つだけ起動しておく（質問ごとにマイク許可が出ないように） */
+const REC = { rec: null, on: false, handler: null, session: 0, len: 0 };
+function recEnsure(){
+  if(REC.rec) return REC.rec;
+  const r = new SR(); r.lang = 'en-US'; r.continuous = true; r.interimResults = true;
+  r.onstart = () => { REC.session++; REC.len = 0; };
+  r.onresult = e => { REC.len = e.results.length; REC.handler && REC.handler(e); };
+  r.onend = () => { if(REC.on){ setTimeout(() => { if(REC.on){ try{ r.start(); }catch(e){} } }, 150); } };
+  r.onerror = e => {
+    if(e.error === 'not-allowed' || e.error === 'service-not-allowed'){
+      REC.on = false; S.input = 'type';
+      toast('音声認識が許可されていません。キーボード入力に切り替えます');
+    }
+  };
+  REC.rec = r; REC.on = true;
+  try{ r.start(); }catch(e){}
+  return r;
+}
+function recStop(){ REC.on = false; REC.handler = null; try{ REC.rec && REC.rec.abort(); }catch(e){} REC.rec = null; }
+
 /* listen: returns {text, durationSec, latencySec, words, reason} */
 function listen(key, { label, hint, max, pardon }){
   check();
@@ -637,30 +666,33 @@ function listen(key, { label, hint, max, pardon }){
     const showLive = () => { if(S.live) live.textContent = (finals.join(' ') + ' ' + interim).trim() || '…'; };
     live.classList.toggle('hidden', !(S.live && S.input === 'voice')); live.textContent = '…';
     if(S.input === 'voice' && SR){
-      rec = new SR(); rec.lang = 'en-US'; rec.continuous = true; rec.interimResults = true;
-      rec.onresult = e => {
-        if(!firstAt) firstAt = performance.now();
-        interim = '';
+      rec = recEnsure();
+      // この回答より前に話し始めていた分（面接官の声など）は使わない
+      const base = REC.session, baseLen = REC.len;
+      const seen = new Set();
+      REC.handler = e => {
+        const fresh = REC.session !== base;
+        let changed = false; interim = '';
         for(let i = e.resultIndex; i < e.results.length; i++){
-          const r = e.results[i];
-          if(r.isFinal) finals.push(r[0].transcript.trim()); else interim += r[0].transcript;
+          if(!fresh && i < baseLen) continue;
+          const id = REC.session + ':' + i, r = e.results[i];
+          if(r.isFinal){ if(!seen.has(id)){ seen.add(id); finals.push(r[0].transcript.trim()); changed = true; } }
+          else { interim += r[0].transcript; changed = true; }
         }
+        if(changed && !firstAt) firstAt = performance.now();
         showLive();
       };
-      rec.onend = () => { if(!done){ try{ rec.start(); }catch(e){} } };
-      rec.onerror = e => { if(e.error === 'not-allowed' || e.error === 'service-not-allowed'){ toast('音声認識が許可されていません。キーボード入力に切り替えます'); S.input = 'type'; } };
-      try{ rec.start(); }catch(e){}
     } else {
       typing.classList.remove('hidden'); typing.value = ''; typing.focus();
       typing.oninput = () => { if(!firstAt) firstAt = performance.now(); };
     }
-    const recorder = startRecorder();
+    const recorder = IOS ? null : startRecorder();
     $('#recdot').classList.remove('hidden');
     const tick = countdown(max);
     const finish = async (reason) => {
       if(done) return; done = true;
       clearInterval(tickTimer); setActions([]);
-      if(rec){ try{ rec.stop(); }catch(e){} await sleep(700); }
+      if(rec){ await sleep(700); REC.handler = null; if(IOS) recStop(); }
       const blob = recorder ? await recorder.stop() : null;
       if(blob) S.audio[key] = URL.createObjectURL(blob);
       clearClock(); live.classList.add('hidden');
@@ -679,7 +711,7 @@ function listen(key, { label, hint, max, pardon }){
       $('#stage').classList.add('talking');
       const u = new SpeechSynthesisUtterance(pardon); if(VOICE) u.voice = VOICE; u.rate = S.rate;
       u.onend = u.onerror = () => $('#stage').classList.remove('talking');
-      speechSynthesis.cancel(); speechSynthesis.speak(u);
+      speakSafe(u);
       if(S.subs) $('#subtitle').textContent = pardon;
     }});
     setActions(btns);
@@ -719,13 +751,14 @@ $('#startBtn').onclick = startExam;
 $('#abortBtn').onclick = () => { if(confirm('面接を中断してトップに戻りますか？')) abortExam(); };
 
 function abortExam(){
-  S.aborted = true; speechSynthesis.cancel(); clearClock(); setActions([]);
+  S.aborted = true; speechSynthesis.cancel(); clearClock(); setActions([]); recStop();
   if(S._finish) S._finish('abort');
   if(S._rej) S._rej(new Abort());
   $('#abortBtn').hidden = true; show('home');
 }
 
 async function startExam(){
+  if(IOS && 'speechSynthesis' in window){ try{ const u0 = new SpeechSynthesisUtterance(' '); u0.volume = 0; speechSynthesis.speak(u0); }catch(e){} }
   S.student = { cls: $('#sCls').value.trim(), no: $('#sNo').value.trim(), name: $('#sName').value.trim() };
   store.set('p1_student', S.student);
   S.subs = $('#optSub').checked; store.set('p1_subs', S.subs);
@@ -737,8 +770,9 @@ async function startExam(){
   const id = selected === 'random' ? CARDS[Math.floor(Math.random()*CARDS.length)].id : selected;
   S.card = CARDS.find(c => c.id === id) || CARDS[0];
   S.answers = {}; S.audio = {}; S.pardons = 0; S.aborted = false;
-  if(S.input === 'voice'){
+  if(S.input === 'voice' && !IOS){
     try{ await ensureMic(); }catch(e){ toast('マイクが使えないため、キーボード入力にします'); S.input = 'type'; }
+    if(S.input === 'voice' && !IOS){ recStop(); recEnsure(); }
   }
   S.mode = document.querySelector('input[name=runMode]:checked').value;
   show('exam'); $('#abortBtn').hidden = false; renderCard('none'); $('#subtitle').textContent = '';
@@ -872,12 +906,13 @@ async function runExam(){
       cp: '本番では、退室後に控室へ戻ったり、待っている受験者と話したりしてはいけません。'
     });
   } else setStep(12);
-  setStep(13); hideGuide();
+  setStep(13); hideGuide(); recStop();
   $('#abortBtn').hidden = true;
   await evaluate();
 }
 
 async function entryDone(){
+  recStop();
   setStep(6);
   const g = $('#guide'); g.classList.remove('hidden');
   $('#gStep').textContent = '入室〜試験開始の練習 おわり';
@@ -913,27 +948,57 @@ function parseJSONLoose(t){
   const s = t.indexOf('{'), e = t.lastIndexOf('}');
   return JSON.parse(s >= 0 ? t.slice(s, e+1) : t);
 }
+/* 画面が消えると通信が止まる端末（iPhoneなど）向けに、採点中は画面を点けたままにする */
+let wakeLock = null;
+async function keepAwake(on){
+  try{
+    if(on && 'wakeLock' in navigator && !wakeLock){ wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; }); }
+    if(!on && wakeLock){ await wakeLock.release(); wakeLock = null; }
+  }catch(e){}
+}
+function why(e){
+  const m = String(e && e.message || e);
+  if(/load failed|failed to fetch|networkerror|network/i.test(m)) return '通信が途中で切れました。採点中に画面を閉じたり、別のアプリに切り替えたりしなかったか、電波が弱くないか確認してください';
+  if(/429/.test(m)) return 'いま採点が混み合っています（回数の上限）。少し待ってからもう一度押してください';
+  if(/timeout|時間/i.test(m)) return '採点に時間がかかりすぎました';
+  return m;
+}
 async function evaluate(){
   show('result');
   const R = $('#result');
   const url = gasUrl();
   if(!url){ renderManual('採点用のURLがまだ設定されていません。'); return; }
-  R.innerHTML = `<div class="card loading"><div><div class="spin"></div><b>面接官が採点しています…</b><p class="small muted">20〜40秒ほどかかります</p></div></div>`;
-  try{
-    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload()) });
-    const j = await r.json();
-    if(!j.ok) throw new Error(j.error || '採点に失敗しました');
-    renderResult(parseJSONLoose(j.result));
-  }catch(e){
-    console.error(e);
-    renderManual('自動採点に接続できませんでした（' + esc(e.message) + '）。');
+  R.innerHTML = `<div class="card loading"><div><div class="spin"></div><b>面接官が採点しています…</b><p class="small muted">30秒〜1分ほどかかります。<br><b>この画面を開いたまま</b>お待ちください（画面を閉じたり、別のアプリに切り替えたりすると採点が止まります）。</p><p class="small muted" id="evalMsg"></p></div></div>`;
+  keepAwake(true);
+  const body = JSON.stringify(payload());
+  let lastErr = null;
+  for(let attempt = 1; attempt <= 3; attempt++){
+    try{
+      const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 150000);
+      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body, redirect: 'follow', signal: ctrl.signal });
+      clearTimeout(to);
+      const txt = await r.text();
+      let j; try{ j = JSON.parse(txt); }catch(_){ throw new Error('採点サーバーの返事を読み取れませんでした（' + r.status + '）'); }
+      if(!j.ok) throw new Error(j.error || '採点に失敗しました');
+      keepAwake(false);
+      renderResult(parseJSONLoose(j.result));
+      return;
+    }catch(e){
+      console.error(e); lastErr = e;
+      if(e.name === 'AbortError') lastErr = new Error('timeout');
+      const m = $('#evalMsg'); if(m) m.textContent = `うまくいかなかったので、やり直しています（${attempt}/3）…`;
+      await sleep(3000 * attempt);
+    }
   }
+  keepAwake(false);
+  renderManual('自動採点できませんでした：' + esc(why(lastErr)) + '。', true);
 }
-function renderManual(reason){
+function renderManual(reason, canRetry){
   const prompt = buildEvalPrompt(payload());
   $('#result').innerHTML = `<div class="card">
     <h2 style="margin:0 0 6px;font-size:19px">Geminiで採点する</h2>
-    <p class="small muted">${reason} 下の手順で採点できます。</p>
+    <p class="small" style="color:var(--warn)">${reason}</p>
+    ${canRetry ? `<div class="row" style="margin:8px 0 14px"><button class="btn primary" id="retryBtn">もう一度、自動で採点する</button></div><p class="small muted">それでもできないときは、下の手順で Gemini で採点できます。</p>` : '<p class="small muted">下の手順で採点できます。</p>'}
     <ol class="small">
       <li>「採点用の文をコピー」を押し、Gemini に貼り付けて送信します。</li>
       <li>Gemini の返事（{ で始まる文）を全部コピーして、下の欄に貼り付けます。</li>
@@ -946,6 +1011,7 @@ function renderManual(reason){
   $('#cpBtn').onclick = async () => { try{ await navigator.clipboard.writeText(prompt); toast('コピーしました'); }catch(e){ const t=document.createElement('textarea'); t.value=prompt; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); toast('コピーしました'); } };
   $('#pbBtn').onclick = () => { try{ renderResult(parseJSONLoose($('#pasteBack').value)); }catch(e){ toast('読み取れませんでした。{ から } までを貼り付けてください'); } };
   $('#homeBtn2').onclick = goHome;
+  if(canRetry) $('#retryBtn').onclick = evaluate;
 }
 function goHome(){ renderCards(); renderHist(); show('home'); }
 
