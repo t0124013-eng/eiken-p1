@@ -99,7 +99,7 @@ main{max-width:1180px;margin:0 auto;padding:24px 16px calc(40px + var(--dock-h))
 label.f{display:block;font-size:12.5px;color:var(--sub);margin-bottom:4px}
 input.f,select.f,textarea.f{width:100%;min-height:44px;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
 input.f:focus,textarea.f:focus,select.f:focus{border-color:var(--blue);outline:none}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(max-width:640px){.modes{grid-template-columns:1fr}}
 .mode{position:relative;display:block;border:1.5px solid var(--line);border-radius:var(--r-md);padding:14px;cursor:pointer;background:var(--surface)}
 .mode input{position:absolute;opacity:0;pointer-events:none}
@@ -168,9 +168,6 @@ details.fold>summary small{font-weight:400;color:var(--sub);font-size:13px}
 @keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.25)}}
 #eyes{animation:blink 4.2s infinite;transform-origin:200px 138px}
 @keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-#door,#examiner{transition:opacity .6s}
-.stage.inside #door{opacity:0}
-.stage:not(.inside) #examiner{opacity:0}
 .speak-dot{position:absolute;left:12px;top:12px;display:none;align-items:center;gap:6px;background:rgba(255,255,255,.92);color:#1B2433;border-radius:999px;padding:3px 10px 3px 8px;font-size:12.5px;font-weight:700}
 .speak-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#2457C5;animation:pulse 1s infinite}
 .talking .speak-dot{display:inline-flex}
@@ -316,7 +313,7 @@ h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
     <div class="logo"><i aria-hidden="true"></i><span>準1級 面接ルーム</span></div>
     <div class="grow">
       <div class="prog hidden" id="prog">
-        <div class="lbl"><b id="stepNum">1/13</b><span id="stepName">受験の準備</span></div>
+        <div class="lbl"><b id="stepNum">1/7</b><span id="stepName">自己紹介</span></div>
         <div class="segs" id="segs" aria-hidden="true"></div>
         <button class="btn flowbtn" id="flowBtn" aria-expanded="false">流れ</button>
       </div>
@@ -331,7 +328,7 @@ h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
   <!-- ======================= HOME ======================= -->
   <section id="home" class="home">
     <h1>本番と同じ流れで、<br>面接官と練習しよう</h1>
-    <p class="lead">英検®準1級 二次試験の練習です。入室からナレーション、No.1〜No.4までを声で答えると、最後に内容と英語の正確さの評価が出ます。</p>
+    <p class="lead">英検®準1級 二次試験の練習です。自己紹介、ナレーション、No.1〜No.4を声で答えると、最後に内容と英語の正確さの評価が出ます。</p>
 
     <div class="blk">
       <h2><span class="n">1</span>あなたの名前</h2>
@@ -345,8 +342,7 @@ h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
     <div class="blk">
       <h2><span class="n">2</span>練習のしかた</h2>
       <div class="modes">
-        <label class="mode"><input type="radio" name="runMode" value="guided" checked><b>ガイドつき</b><span>音声ガイドが入室から試験開始まで案内。はじめての人はここから</span></label>
-        <label class="mode"><input type="radio" name="runMode" value="entry"><b>入室だけ</b><span>あいさつ・カードの受け渡し・名前の確認までをくり返す（採点なし）</span></label>
+        <label class="mode"><input type="radio" name="runMode" value="guided" checked><b>ガイドつき</b><span>音声ガイドと例文つきで、流れを確かめながら進む。はじめての人はここから</span></label>
         <label class="mode"><input type="radio" name="runMode" value="real"><b>本番モード</b><span>ガイドなし。面接官とのやりとりだけで最後まで</span></label>
       </div>
     </div>
@@ -373,7 +369,7 @@ h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
     </details>
 
     <details class="fold">
-      <summary>面接の流れ<small>本番の13ステップ</small></summary>
+      <summary>面接の流れ<small>自己紹介から質問No.4まで</small></summary>
       <div class="fold-in"><ol class="flowlist" id="flowList"></ol></div>
     </details>
 
@@ -432,17 +428,6 @@ h2.st{font-size:18px;margin:22px 0 10px;scroll-margin-top:120px}
             <rect x="0" y="232" width="400" height="7" fill="#7F909F"/>
             <rect x="238" y="216" width="76" height="22" rx="2" fill="#fff" stroke="#D0D7DE" transform="rotate(-4 276 227)"/>
             <rect x="96" y="222" width="44" height="12" rx="2" fill="#2F3B45"/>
-            <g id="door">
-              <rect width="400" height="300" fill="#E9EEF2"/>
-              <rect x="0" y="236" width="400" height="64" fill="#CBD5DD"/>
-              <rect x="132" y="34" width="136" height="214" rx="4" fill="#8A6F52" stroke="#6E5740" stroke-width="4"/>
-              <rect x="148" y="52" width="104" height="78" rx="3" fill="none" stroke="#6E5740" stroke-width="3"/>
-              <rect x="148" y="146" width="104" height="86" rx="3" fill="none" stroke="#6E5740" stroke-width="3"/>
-              <circle cx="248" cy="148" r="7" fill="#D9C08A" stroke="#8a6d3a" stroke-width="2"/>
-              <rect x="160" y="10" width="80" height="20" rx="3" fill="#fff" stroke="#BFC9D2"/>
-              <text x="200" y="24" font-size="10" text-anchor="middle" fill="#55606B">面接室 Room 3</text>
-              <rect x="40" y="150" width="62" height="11" rx="2" fill="#8E9AA5"/><rect x="46" y="161" width="6" height="40" fill="#8E9AA5"/><rect x="90" y="161" width="6" height="40" fill="#8E9AA5"/>
-            </g>
           </svg>
           <span class="speak-dot">面接官</span>
           <div class="sub" id="subtitle"></div>
@@ -545,7 +530,7 @@ function renderCards(){
   });
   updateSum();
 }
-const MODE_NAME = { guided:'ガイドつき', entry:'入室だけ', real:'本番モード' };
+const MODE_NAME = { guided:'ガイドつき', real:'本番モード' };
 function updateSum(){
   const m = (document.querySelector('input[name=runMode]:checked') || {}).value || 'guided';
   const c = selected === 'random' ? null : CARDS.find(x => x.id === selected);
@@ -639,8 +624,7 @@ function sayJa(text){
 }
 
 /* ---------- steps (バーチャル二次試験の流れ) ---------- */
-const STEPS = ['受験の準備','入室','「面接カード」を渡す','着席','氏名・級の確認、簡単な質問','「問題カード」を受け取る',
-  'Narrationの考慮時間','Narration','Q&A（No.1）','「問題カード」を裏返す','Q&A（No.2〜No.4）','「問題カード」を返す','退室'];
+const STEPS = ['自己紹介','「問題カード」を受け取る','Narrationの考慮時間','Narration','Q&A（No.1）','「問題カード」を裏返す','Q&A（No.2〜No.4）'];
 function setStep(i){
   S.step = i;
   const n = Math.min(i, STEPS.length - 1);
@@ -691,21 +675,6 @@ function note(i, cp){
   $('#gCp').classList.remove('hidden'); $('#gCp').innerHTML = `<b>チェックポイント！</b> ${esc(cp)}`;
   $('#gSay').classList.add('hidden'); $('#gActions').innerHTML = '';
 }
-/* ノックの音 */
-function knock(){
-  try{
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    [0, .28, .56].forEach(t => {
-      const o = ctx.createOscillator(), g = ctx.createGain();
-      o.type = 'sine'; o.frequency.setValueAtTime(170, ctx.currentTime + t); o.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + t + .09);
-      g.gain.setValueAtTime(.9, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + t + .12);
-      o.connect(g).connect(ctx.destination); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + .14);
-    });
-    setTimeout(() => { try{ ctx.close(); }catch(e){} }, 900);
-  }catch(e){}
-  return sleep(900);
-}
-
 /* ---------- mic ---------- */
 async function ensureMic(){
   if(S.stream) return S.stream;
@@ -919,110 +888,57 @@ async function startExam(){
   }
   S.mode = document.querySelector('input[name=runMode]:checked').value;
   show('exam'); $('#abortBtn').hidden = false; renderCard('none'); $('#subtitle').textContent = '';
-  $('#stage').classList.remove('inside'); hideGuide(); setStep(0);
+  hideGuide(); setStep(0);
   try{ await runExam(); }
   catch(e){ if(!(e instanceof Abort)) { console.error(e); toast('エラー: ' + e.message); } }
 }
 
 async function runExam(){
   const c = S.card, A = S.answers, Q = c.questions;
-  const G = S.mode !== 'real';           // ガイドあり
-  const short = (key, label, hint, max = 8) => listen(key, { label, hint, max: G ? max + 6 : max });
   setActions([]);
 
-  /* STEP1 受験の準備 */
+  /* STEP1 自己紹介（ここから話し始める） */
   await guide(0, {
-    text: '控室では、面接カードに必要事項を記入して、係員の指示があるまで静かに待ちます。携帯電話の電源は切っておきましょう。準備ができたら、面接室の前に移動します。',
-    cp: '面接カードは記入してありますか。面接では、すべて英語でやりとりします。'
+    text: '面接官が、あなた自身について簡単に質問します。2〜3文で、学校生活や趣味などを話しましょう。',
+    cp: 'ここは採点の対象外ですが、はっきり、自然に答えましょう。',
+    line: 'I am a second-year student at Sakuragaoka High School. I like ...'
   });
+  await say("Hello. Could you tell me a little about yourself?");
+  A.free = await listen('free', { label: '自己紹介', hint: '2〜3文で、学校生活や趣味などを話しましょう。', max: ANSWER_SEC.free });
 
-  /* STEP2 入室 */
-  await guide(1, {
-    text: '係員の指示に従い、面接室に入ります。ドアをノックして、May I come in? と声をかけてから入りましょう。',
-    line: 'May I come in?'
-  });
-  await waitAction('ドアをノックする', 'ノックしてから、英語で入室の許可を求めます。');
-  await knock();
-  A.enter = await short('enter', '入室のあいさつ', '例：May I come in?');
-  await say("Please come in.");
-  $('#stage').classList.add('inside');
-  await sleep(700);
-  await say("Hello.");
-  A.hello = await short('hello', 'あいさつを返す', '例：Hello. / Good morning.');
-
-  /* STEP3 面接カードを渡す */
-  await guide(2, {
-    text: '面接委員に「面接カード」を手渡します。',
-    cp: '面接カードは、着席する前に手渡します。',
-    line: 'Here you are.'
-  });
-  await say("Can I have your card, please?");
-  A.card = await short('card', '面接カードを渡す', '例：Here you are.');
-  await waitAction('面接カードを渡す');
-  await say("Thank you.");
-
-  /* STEP4 着席 */
-  await guide(3, {
-    text: '面接委員の指示に従って、着席します。',
-    line: 'Thank you.'
-  });
-  await say("Please have a seat.");
-  A.sit = await short('sit', 'お礼を言う', '例：Thank you.');
-  await waitAction('着席する');
-
-  /* STEP5 氏名・級の確認、簡単な質問 */
-  await guide(4, {
-    text: '面接委員が、あなたの氏名と、これから受験する級を確認します。そのあと、簡単な質問をします。',
-    cp: 'ここはまだ採点の対象外ですが、はっきり、自然に答えましょう。',
-    line: 'My name is ____.'
-  });
-  await say("May I have your name, please?");
-  A.name = await listen('name', { label: '名前を答える', hint: '例：My name is ____.', max: ANSWER_SEC.name });
-  await say(`My name is ${EXAMINER_NAME}. This is the Grade Pre-1 test. OK?`);
-  A.ok = await listen('ok', { label: '返事をする', hint: '例：OK. / Yes.', max: ANSWER_SEC.ok });
-  await say("All right. Could you tell me a little about yourself?");
-  A.free = await listen('free', { label: '簡単な質問（自己紹介）', hint: '2〜3文で、学校生活や趣味などを話しましょう。（採点はアティチュードの参考のみ）', max: ANSWER_SEC.free });
-
-  /* STEP6 問題カードを受け取る */
-  await guide(5, {
-    text: '面接委員から「問題カード」が手渡されます。',
-    cp: '問題カードには、指示文と4コマのイラストが印刷されています。',
-    line: 'Thank you.'
-  });
+  /* STEP2 問題カードを受け取る */
+  setStep(1);
   await say("Thank you. Now, let's begin the test. Here's your card.");
   renderCard('front');
-  A.take = await short('take', 'カードを受け取る', '例：Thank you.', 6);
 
-  if(S.mode === 'entry'){ await entryDone(); return; }
-
-  /* STEP7 考慮時間 */
-  await guide(6, {
+  /* STEP3 考慮時間 */
+  await guide(2, {
     text: 'ここから試験本番です。問題カードの指示文を黙読し、ナレーションの内容を考えます。',
     cp: '考える時間は1分間です。メモを取ることはできません。'
   });
   await say("You have one minute to prepare before you start your narration.");
   await prep(60);
 
-  /* STEP8 Narration */
-  note(7, 'ナレーションは2分間。カードに印刷された言い出しの文を必ず使って始めます。2分を過ぎると途中でも中止されます。');
+  /* STEP4 Narration */
+  note(3, 'ナレーションは2分間。カードに印刷された言い出しの文を必ず使って始めます。2分を過ぎると途中でも中止されます。');
   await say("All right. Please begin your narration. You have two minutes.");
   A.narration = await listen('narration', { label: 'ナレーション（2分）', hint: '言い出しの文から始めて、4コマ目まで話しましょう。2分で打ち切られます。', max: ANSWER_SEC.narration });
   await say("Thank you.");
 
-  /* STEP9 No.1 */
-  note(8, 'No.1はイラストに関する質問です。答えるときは問題カードを見てかまいません。');
+  /* STEP5 No.1 */
+  note(4, 'No.1はイラストに関する質問です。答えるときは問題カードを見てかまいません。');
   await say("Now, I'll ask you four questions.");
   await say("Question number one. " + Q[0]);
   A.q1 = await listen('q1', { label: 'No.1', hint: 'カードを見て答えてOK。例：I\'d be thinking, “…”', max: ANSWER_SEC.q1, pardon: Q[0] });
 
-  /* STEP10 裏返す */
-  note(9, '面接委員の指示で、問題カードを裏返して置きます。');
+  /* STEP6 裏返す */
+  note(5, '面接委員の指示で、問題カードを裏返して置きます。');
   await say("Now, please turn over the card and put it down.");
   await waitAction('カードを裏返す');
   renderCard('back');
 
-  /* STEP11 No.2〜4 */
-  note(10, '自然な流れでの聞き返しは減点されません。立場をはっきりさせ、理由を添えて答えましょう。');
+  /* STEP7 No.2〜4 */
+  note(6, '自然な流れでの聞き返しは減点されません。立場をはっきりさせ、理由を添えて答えましょう。');
   for(let i = 1; i <= 3; i++){
     const nums = ['two','three','four'];
     await say(`Question number ${nums[i-1]}. ${Q[i]}`);
@@ -1030,46 +946,11 @@ async function runExam(){
     if(i < 3) await sleep(200);
   }
 
-  /* STEP12 返す */
-  note(11, '試験が終わったら、問題カードを必ず面接委員に返します。');
-  await say("That's all. Thank you. May I have the card back, please?");
-  A.back = await short('back', 'カードを返す', '例：Here you are.', 6);
-  await waitAction('問題カードを返す');
-  renderCard('none');
-
-  /* STEP13 退室 */
-  await say("Thank you. You may go now.");
-  A.bye1 = await short('bye1', 'お礼を言う', '例：Thank you very much.', 6);
-  await say("Goodbye. Have a nice day.");
-  A.bye2 = await short('bye2', 'あいさつをして退室', '例：Goodbye. You too.', 6);
-  if(G){
-    await guide(12, {
-      text: '席を立ち、退室します。おつかれさまでした。このあと評価シートが表示されます。',
-      cp: '本番では、退室後に控室へ戻ったり、待っている受験者と話したりしてはいけません。'
-    });
-  } else setStep(12);
-  setStep(13); hideGuide(); recStop();
+  /* 終了 → そのまま採点 */
+  await say("That's all. Thank you.");
+  setStep(STEPS.length); hideGuide(); recStop(); renderCard('none');
   $('#abortBtn').hidden = true;
   await evaluate();
-}
-
-async function entryDone(){
-  recStop();
-  setStep(6);
-  const g = $('#guide'); g.classList.remove('hidden');
-  $('#gStep').textContent = '入室〜試験開始の練習 おわり';
-  $('#gText').textContent = 'ここで試験本番（考える時間）に入ります。もう一度くり返すか、通し練習に進みましょう。';
-  $('#gCp').classList.add('hidden'); $('#gSay').classList.add('hidden');
-  setPhase('おわり', ''); setActions([]);
-  sayJa('入室から試験開始までの練習はここまでです。もう一度くり返すか、通し練習に進みましょう。');
-  const ga = $('#gActions'); ga.innerHTML = '';
-  const again = document.createElement('button'); again.className = 'btn primary'; again.textContent = 'もう一度';
-  again.onclick = () => { speechSynthesis.cancel(); startExam(); };
-  const full = document.createElement('button'); full.className = 'btn'; full.textContent = '通し練習へ';
-  full.onclick = () => { speechSynthesis.cancel(); document.querySelector('input[name=runMode][value=guided]').checked = true; startExam(); };
-  const top = document.createElement('button'); top.className = 'btn quiet'; top.textContent = 'トップへ';
-  top.onclick = () => { speechSynthesis.cancel(); $('#abortBtn').hidden = true; goHome(); };
-  ga.append(again, full, top);
 }
 
 /* ---------- evaluation ---------- */
