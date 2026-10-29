@@ -168,5 +168,165 @@ window.CARDS = [
       "Q3: 肯定例＝文化財保護の制度や補助金がある／否定例＝担い手不足・後継者問題",
       "Q4: 賛成例＝環境や住民生活を守る・観光体験の質の向上／反対例＝観光収入の減少・自由な移動の制限"
     ]
+},
+  {
+    id: 6,
+    title: "使い捨てプラスチック",
+    topic: "Plastic waste",
+    story: "This is a story about a man who ran a cafe.",
+    firstSentence: "One day, a man was walking on a beach on his day off.",
+    image: "images/card6",
+    panels: [
+      { time: null, note: null,
+        scene: "休みの日、カフェの店主の男性が、砂浜に散らばったプラスチックのカップやストロー、ペットボトルを悲しそうに見ている。" },
+      { time: "The next week", note: "Sign: “Paper straws only / ¥30 off with your own cup”",
+        scene: "カフェのカウンターに紙ストローの瓶を置き、男性がマイタンブラーを掲げて笑顔。" },
+      { time: "A month later", note: null,
+        scene: "客たちが自分のタンブラーを笑顔で男性に渡している。みんな満足そう。" },
+      { time: "That summer", note: "Customer: “This straw is getting soft!”",
+        scene: "テーブルの客たちが、アイスドリンクの中でふやけて曲がった紙ストローを指さして不満顔。男性は困った顔。" }
+    ],
+    who: "the man",
+    questions: [
+      "Please look at the fourth picture. If you were the man, what would you be thinking?",
+      "Should stores be required to charge customers for plastic bags and containers?",
+      "Do you think individuals can make a real difference in protecting the environment?",
+      "Should the government do more to encourage people to repair things instead of throwing them away?"
+    ],
+    modelNarration: "One day, a man was walking on a beach on his day off. He was shocked to see a lot of plastic cups, straws and bottles on the sand. The next week, the man put paper straws on the counter of his cafe. A sign said that customers could get 30 yen off if they brought their own cups. A month later, many customers were bringing their own tumblers, and everyone seemed happy with the change. That summer, however, some customers were complaining. They were pointing at their paper straws and saying that the straws were getting soft in their drinks, and the man looked worried.",
+    modelQ1: "I'd be thinking, “I still believe that reducing plastic is important, but I need to keep my customers happy, too. Maybe I should look for stronger straws, such as ones made from bamboo or metal.”",
+    points: [
+      "Q2: 賛成例＝レジ袋有料化でごみが減った・意識が変わる／反対例＝消費者の負担・衛生面で必要な場面もある",
+      "Q3: 肯定例＝一人ひとりの行動が集まれば企業や社会を動かす／否定例＝企業や国の取り組みに比べ効果が小さい",
+      "Q4: 賛成例＝ごみと資源の節約・修理業の雇用／反対例＝修理より買い替えの方が安い・個人の自由"
+    ]
+  },
+  {
+    id: 7,
+    title: "キャッシュレス決済",
+    topic: "Cashless payments",
+    story: "This is a story about a woman who ran a vegetable shop.",
+    firstSentence: "One day, a woman was working at her vegetable shop.",
+    image: "images/card7",
+    panels: [
+      { time: null, note: null,
+        scene: "八百屋の女性がレジで小銭を数えるのに時間がかかり、長い列の客がいらいらしている。" },
+      { time: "The next week", note: "Sign: “Cashless payments only”",
+        scene: "女性が誇らしげにQRコード決済の案内をレジの横に置いている。現金のレジは脇に片づけられている。" },
+      { time: "A few weeks later", note: null,
+        scene: "若い客たちがスマホでQRコードを読み取ってすばやく支払い、列は短い。女性は笑顔。" },
+      { time: "One afternoon", note: "Elderly customer: “I only have cash.”",
+        scene: "買い物かごを持った常連の高齢の女性が、お札と小銭を差し出して困った顔。店主の女性も困った顔。" }
+    ],
+    who: "the woman",
+    questions: [
+      "Please look at the fourth picture. If you were the woman, what would you be thinking?",
+      "Do you think Japan will become a completely cashless society in the future?",
+      "Should more be done to help elderly people use new technology?",
+      "Do you think online shopping is harmful to local stores?"
+    ],
+    modelNarration: "One day, a woman was working at her vegetable shop. She was counting coins at the register, and many customers in a long line looked impatient. The next week, the woman put a QR code sign next to the register, which said that the shop would accept cashless payments only. A few weeks later, young customers were paying quickly with their smartphones, and the woman was pleased that the line was short. One afternoon, however, one of her elderly regular customers was holding out some cash. She told the woman that she only had cash, and the woman did not know what to do.",
+    modelQ1: "I'd be thinking, “I didn't mean to cause trouble for my regular customers. I should accept cash again for people who need it, or I could show her how to use cashless payments step by step.”",
+    points: [
+      "Q2: 肯定例＝便利で速い・海外からの観光客にも対応・現金管理の負担減／否定例＝災害時の停電・高齢者・現金への信頼",
+      "Q3: 賛成例＝行政手続きや買い物がオンライン化している・孤立を防ぐ／反対例＝家族や地域が支えるべき・無理に使う必要はない",
+      "Q4: 肯定例＝商店街の客が減る・地域の雇用が失われる／否定例＝地元の店もネット販売で客を広げられる"
+    ]
+  },
+  {
+    id: 8,
+    title: "公園のボール遊び",
+    topic: "Public parks",
+    story: "This is a story about a father who wanted his son to play in the park.",
+    firstSentence: "One day, a father and his son went to a park near their house.",
+    image: "images/card8",
+    panels: [
+      { time: null, note: "Sign: “No ball games”",
+        scene: "近所の小さな公園で、グローブを持った息子と父親が「ボール遊び禁止」の看板を見てがっかりしている。" },
+      { time: "A month later", note: "Father: “Children need a place to play catch.”",
+        scene: "地域の集会所で、父親が紙を持って熱心に発言し、住民たちが聞いている。" },
+      { time: "That spring", note: null,
+        scene: "公園にフェンスで囲まれたボール遊びのエリアができ、たくさんの子どもがキャッチボールやサッカーを楽しんでいる。父親は笑顔。" },
+      { time: "A few weeks later", note: "Neighbor: “It's too noisy every day!”",
+        scene: "公園のすぐ隣の家の玄関先で、高齢の女性が耳をふさいで父親に怒って話している。後ろではボールが飛んでいる。父親は困った顔。" }
+    ],
+    who: "the father",
+    questions: [
+      "Please look at the fourth picture. If you were the father, what would you be thinking?",
+      "Do you think children today spend enough time playing outside?",
+      "Should local residents have more say in how public spaces are used?",
+      "Are people in Japan becoming less tolerant of noise in their neighborhoods?"
+    ],
+    modelNarration: "One day, a father and his son went to a park near their house. They wanted to play catch, but they were disappointed to see a sign that said ball games were not allowed. A month later, the father was speaking at a community meeting. He told the other residents that children needed a place to play catch. That spring, a fenced area for ball games was built in the park, and many children were enjoying playing there. A few weeks later, however, a woman who lived next to the park was complaining to the father. She said that it was too noisy every day, and the father did not know what to say.",
+    modelQ1: "I'd be thinking, “I'm glad the children have a place to play, but I didn't think about the people living next to the park. We should talk again and decide on playing hours so that everyone can be comfortable.”",
+    points: [
+      "Q2: 否定例＝ゲームやスマホの時間が増えた・遊べる場所が減った／肯定例＝習い事やスポーツクラブで体を動かしている",
+      "Q3: 賛成例＝実際に使う人の声が大切・地域への愛着が生まれる／反対例＝意見がまとまらず決定が遅れる・専門家に任せるべき",
+      "Q4: 肯定例＝保育園や公園への苦情が増えている／否定例＝一部の人の声が目立っているだけ・お互いさまの意識もある"
+    ]
+  },
+  {
+    id: 9,
+    title: "防災訓練",
+    topic: "Disaster preparedness",
+    story: "This is a story about a woman who wanted more people to join a disaster drill.",
+    firstSentence: "One day, a woman was holding a disaster drill in her neighborhood.",
+    image: "images/card9",
+    panels: [
+      { time: null, note: null,
+        scene: "校庭で行われた防災訓練。消火器やテントが用意されているのに、来たのは高齢者2人だけで、町内会の女性ががっかりしている。" },
+      { time: "That evening", note: "Poster: “Disaster Prevention Festival — food stalls and games!”",
+        scene: "家のテーブルで、女性が屋台や風船、消防車の絵が入ったカラフルなポスターを楽しそうに描いている。" },
+      { time: "A month later", note: null,
+        scene: "校庭が家族連れでにぎわい、屋台やゲームを楽しんでいる。女性は大喜び。" },
+      { time: "Later that day", note: "Sign: “Fire extinguisher practice”",
+        scene: "屋台には長い列ができているのに、消火器の体験コーナーには誰もいない。女性が消火器を持って一人で立ち、がっかりしている。" }
+    ],
+    who: "the woman",
+    questions: [
+      "Please look at the fourth picture. If you were the woman, what would you be thinking?",
+      "Do you think people in Japan are well prepared for natural disasters?",
+      "Should schools spend more time teaching students how to protect themselves in emergencies?",
+      "Do you think people today have weaker ties with their neighbors than in the past?"
+    ],
+    modelNarration: "One day, a woman was holding a disaster drill in her neighborhood. However, only two elderly people came, and she was disappointed. That evening, the woman was making a poster at home. It said that the event would be a disaster prevention festival with food stalls and games. A month later, the schoolyard was crowded with many families, and the woman was very happy to see so many people. Later that day, however, there were long lines at the food stalls, but nobody was at the fire extinguisher practice corner. The woman was standing there alone, and she looked disappointed.",
+    modelQ1: "I'd be thinking, “At least many people came today, which is a good start. Next time, I should give a free food ticket to people who try the fire extinguisher, so that they will join the drill.”",
+    points: [
+      "Q2: 肯定例＝地震の経験から備蓄や訓練が広まっている／否定例＝時間がたつと意識が薄れる・都市部では訓練への参加が少ない",
+      "Q3: 賛成例＝災害の多い国・子どもが家族に伝えられる／反対例＝授業時間が足りない・家庭や地域でも学べる",
+      "Q4: 肯定例＝あいさつをしない・町内会の参加者が減っている／否定例＝SNSや地域アプリなど新しいつながりもある"
+    ]
+  },
+  {
+    id: 10,
+    title: "SNSと口コミ",
+    topic: "Social media and business",
+    story: "This is a story about a man who ran a ramen shop.",
+    firstSentence: "One day, a man was waiting for customers at his ramen shop.",
+    image: "images/card10",
+    panels: [
+      { time: null, note: null,
+        scene: "ラーメン店にはお客が一人しかおらず、店主の男性がカウンターの中で退屈そうにしている。" },
+      { time: "The next week", note: "Influencer: “I'll post a video of your ramen!”",
+        scene: "明るい若い女性のインフルエンサーが、自撮り棒のスマホでラーメンを撮影し、店主が得意げにポーズをとっている。" },
+      { time: "A few days later", note: null,
+        scene: "店の外に、スマホを持った若者たちの長い行列ができている。店主は忙しそうだがうれしそう。" },
+      { time: "That night", note: "Review: “★★ Waited two hours. Not worth it.”",
+        scene: "閉店後、疲れた店主がカウンターに座り、低い星の評価や怒った顔のアイコンが並ぶスマホの画面を見て驚いている。" }
+    ],
+    who: "the man",
+    questions: [
+      "Please look at the fourth picture. If you were the man, what would you be thinking?",
+      "Do you think online reviews are a reliable way to choose restaurants and products?",
+      "Should social media companies do more to stop the spread of false information?",
+      "Do you think young people today are too influenced by social media?"
+    ],
+    modelNarration: "One day, a man was waiting for customers at his ramen shop, but there was only one customer, and he looked bored. The next week, a young woman who was a popular influencer visited his shop. She told him that she would post a video of his ramen, and he was excited. A few days later, there was a very long line of young people outside his shop, and the man was busy but happy. That night, however, he was looking at his smartphone after closing the shop. He was shocked to see many bad reviews saying that customers had waited for two hours and that the ramen was not worth it.",
+    modelQ1: "I'd be thinking, “I'm happy that so many people came, but I can't serve them all well. I should start a reservation system or give out numbered tickets so that customers don't have to wait so long.”",
+    points: [
+      "Q2: 肯定例＝多くの人の実体験が分かる・失敗を避けられる／否定例＝やらせや偽のレビュー・好みは人それぞれ",
+      "Q3: 賛成例＝誤情報は社会に大きな害・企業には責任がある／反対例＝表現の自由・何が誤りかの判断が難しい",
+      "Q4: 肯定例＝流行や外見を気にしすぎる・ネットの評価で判断する／否定例＝情報を選ぶ力もついている・学びや発信にも使っている"
+    ]
   }
 ];
